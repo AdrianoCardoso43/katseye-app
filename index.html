@@ -1,288 +1,268 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <meta name="theme-color" content="#7B5EA7" />
-  <meta name="description" content="KATSEYE Fan App — EYEKONS Brasil" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+  <meta name="theme-color" content="#7B5EA7"/>
   <title>KATSEYE · EYEKONS Brasil</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
       --p1:#7B5EA7;--p2:#B07FD4;--p3:#D4A8F0;--p4:#F0DCFF;--p5:#FAF3FF;
       --pk:#E8629A;--pk2:#F5A0C4;--pk3:#FDEAF3;
-      --gd:linear-gradient(135deg,#7B5EA7,#B07FD4,#E8629A);
+      --gd:linear-gradient(135deg,#7B5EA7,#E8629A);
       --gd2:linear-gradient(135deg,#F0DCFF,#FDEAF3);
       --gd3:linear-gradient(135deg,#7B5EA7 0%,#9B6BC0 50%,#E8629A 100%);
-      --surface:#ffffff;--surface-1:#FAF3FF;--surface-2:#F5F0FB;
-      --border:rgba(123,94,167,0.12);--border-s:rgba(123,94,167,0.25);
-      --text:#1A1025;--text-2:#5A4870;--text-3:#9B8AB0;
-      --radius:10px;--shadow:0 4px 20px rgba(123,94,167,0.15);
+      --surface:#fff;--surface-1:#FAF3FF;--surface-2:#F5F0FB;
+      --border:rgba(123,94,167,.12);--border-s:rgba(123,94,167,.28);
+      --text:#1A1025;--text-2:#5A4870;--text-3:#9B8AB0;--radius:10px;
     }
-    html,body{font-family:'Inter',sans-serif;background:#0D0818;color:var(--text);min-height:100vh;}
+    html,body{font-family:'Inter',sans-serif;background:#0D0818;color:var(--text);min-height:100vh}
+    .shell{max-width:430px;margin:0 auto;background:var(--surface);min-height:100vh;display:flex;flex-direction:column}
 
-    /* ── SHELL ── */
-    .shell{max-width:430px;margin:0 auto;background:var(--surface);min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+    /* HEADER */
+    .app-header{background:var(--gd3);position:relative;overflow:hidden;padding:0}
+    .hdr-bg{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.07'%3E%3Cpath d='M20 20.5V18H0v5h5v5H0v5h20v-9.5zm-2 4.5H4v-4h14v4zm-3-6H7v-3h8v3zM40 18H20v5h5v5h-5v5h20v-9.5zm-2 4.5H24v-4h14v4zm-3-6H27v-3h8v3z'/%3E%3C/g%3E%3C/svg%3E")}
+    .hdr-dots{position:absolute;inset:0;pointer-events:none}
+    .dot{position:absolute;border-radius:50%;background:#fff}
+    .hdr-inner{position:relative;text-align:center;padding:1.8rem 1rem 1.3rem}
+    .hdr-gem{font-size:26px;display:block;margin-bottom:4px}
+    .hdr-logo{font-family:'Bebas Neue',sans-serif;font-size:50px;letter-spacing:8px;color:#fff;line-height:1}
+    .hdr-sub{font-size:10px;color:rgba(255,255,255,.75);letter-spacing:3px;margin-top:3px}
+    .hdr-pills{display:flex;justify-content:center;gap:6px;margin-top:10px;flex-wrap:wrap}
+    .pill{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px}
 
-    /* ── HERO HEADER ── */
-    .app-header{
-      position:relative;padding:0;overflow:hidden;
-      background:var(--gd3);
-    }
-    .header-bg{
-      position:absolute;inset:0;opacity:.18;
-      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    .header-stars{position:absolute;inset:0;pointer-events:none;}
-    .star{position:absolute;width:4px;height:4px;background:#fff;border-radius:50%;opacity:.6;}
-    .header-content{position:relative;text-align:center;padding:2rem 1rem 1.4rem;}
-    .gem-icon{font-size:28px;margin-bottom:6px;display:block;}
-    .app-logo{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:8px;color:#fff;line-height:1;text-shadow:0 2px 20px rgba(0,0,0,.3);}
-    .app-sub{font-size:11px;color:rgba(255,255,255,.8);letter-spacing:3px;margin-top:4px;}
-    .header-badges{display:flex;justify-content:center;gap:8px;margin-top:12px;}
-    .h-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(4px);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;}
+    /* NAV */
+    .app-nav{display:flex;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:20;box-shadow:0 2px 12px rgba(123,94,167,.08)}
+    .app-nav::-webkit-scrollbar{display:none}
+    .nav-btn{flex:1;min-width:54px;padding:9px 3px 7px;background:none;border:none;border-bottom:3px solid transparent;color:var(--text-3);font-size:9px;font-family:'Inter',sans-serif;font-weight:700;cursor:pointer;line-height:1.4;letter-spacing:.3px;transition:all .2s}
+    .nav-btn i{font-size:17px;display:block;margin-bottom:2px}
+    .nav-btn.active{color:var(--p1);border-bottom-color:var(--p1)}
 
-    /* ── NAV ── */
-    .app-nav{display:flex;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:20;}
-    .app-nav::-webkit-scrollbar{display:none;}
-    .nav-btn{flex:1;min-width:56px;padding:10px 4px 8px;background:none;border:none;border-bottom:3px solid transparent;color:var(--text-3);font-size:9px;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer;line-height:1.4;letter-spacing:.3px;transition:all .2s;}
-    .nav-btn i{font-size:17px;display:block;margin-bottom:2px;}
-    .nav-btn.active{color:var(--p1);border-bottom-color:var(--p1);}
-    .nav-btn:hover{color:var(--p2);}
+    /* SECTIONS */
+    .section{display:none;flex:1}
+    .section.active{display:block}
+    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--p1);padding:1rem 1rem .5rem;border-bottom:2px solid var(--p4)}
+    .sec-title span{color:var(--pk)}
 
-    /* ── SECTIONS ── */
-    .section{display:none;flex:1;}
-    .section.active{display:block;}
+    /* NEWS */
+    .news-hero{background:var(--gd3);padding:18px 16px;position:relative;overflow:hidden}
+    .news-hero::before,.news-hero::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.07)}
+    .news-hero::before{width:120px;height:120px;top:-40px;right:-30px}
+    .news-hero::after{width:80px;height:80px;bottom:-20px;left:-20px}
+    .nh-tag{font-size:9px;color:rgba(255,255,255,.7);letter-spacing:3px;font-weight:800;margin-bottom:6px}
+    .nh-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:#fff;line-height:1.2}
+    .nh-sub{font-size:12px;color:rgba(255,255,255,.8);margin-top:5px}
+    .news-list{padding:1rem}
+    .nc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 15px;margin-bottom:12px;position:relative;overflow:hidden}
+    .nc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+    .nc.cn::before{background:var(--gd3)}
+    .nc.ct::before{background:var(--gd)}
+    .nc.cm::before{background:linear-gradient(180deg,var(--pk),var(--pk2))}
+    .nc.ca::before{background:linear-gradient(180deg,#F0C040,#C08000)}
+    .nt{font-size:10px;font-weight:800;letter-spacing:.5px;display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;margin-bottom:7px}
+    .nt.cn{background:#EDE6F9;color:var(--p1)}
+    .nt.ct{background:var(--pk3);color:var(--pk)}
+    .nt.cm{background:#FFF3E0;color:#C07000}
+    .nt.ca{background:#FFFBE0;color:#907000}
+    .n-title{font-size:14px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:5px}
+    .n-body{font-size:12px;color:var(--text-2);line-height:1.65}
+    .n-date{font-size:10px;color:var(--text-3);margin-top:7px;font-weight:700;letter-spacing:.3px}
 
-    /* ── SECTION TITLE ── */
-    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--p1);padding:1.2rem 1rem .6rem;border-bottom:2px solid var(--p4);}
-    .sec-title span{color:var(--pk);margin-left:4px;}
+    /* MEMBERS GRID */
+    .members-wrap{padding:0 1rem 1rem}
+    .member-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding-top:1rem}
+    .mc{border-radius:18px;overflow:hidden;cursor:pointer;background:var(--surface-2);border:1.5px solid var(--border);transition:transform .15s,box-shadow .15s;position:relative}
+    .mc:active{transform:scale(.97)}
+    .mc:hover{box-shadow:0 4px 20px rgba(123,94,167,.2);border-color:var(--p3)}
+    .mc-photo-wrap{width:100%;aspect-ratio:.85;position:relative;overflow:hidden;background:#1a0d2e}
+    .mc-photo{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+    .mc:hover .mc-photo{transform:scale(1.04)}
+    .mc-fallback{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:2px}
+    .mc-pos{position:absolute;top:10px;left:10px;font-size:9px;font-weight:800;padding:3px 9px;border-radius:20px;background:rgba(20,0,40,.65);color:#fff;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2)}
+    .mc-foot{padding:10px 12px 12px;background:var(--surface)}
+    .mc-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--p1)}
+    .mc-ctry{font-size:11px;color:var(--text-3);font-weight:600;margin-top:1px}
 
-    /* ── NEWS ── */
-    .news-hero{background:var(--gd3);padding:20px 16px;margin:0;position:relative;overflow:hidden;}
-    .news-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08);}
-    .news-hero::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.06);}
-    .news-hero-eyekon{font-size:10px;color:rgba(255,255,255,.75);letter-spacing:3px;font-weight:700;margin-bottom:6px;}
-    .news-hero-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#fff;line-height:1.2;}
-    .news-hero-sub{font-size:12px;color:rgba(255,255,255,.8);margin-top:6px;}
-    .news-list{padding:1rem;}
-    .news-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 15px;margin-bottom:12px;position:relative;overflow:hidden;}
-    .news-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
-    .news-card.c-new::before{background:var(--gd3);}
-    .news-card.c-tour::before{background:linear-gradient(180deg,var(--p1),var(--p2));}
-    .news-card.c-member::before{background:linear-gradient(180deg,var(--pk),var(--pk2));}
-    .news-card.c-award::before{background:linear-gradient(180deg,#F0C040,#E08A00);}
-    .n-tag{font-size:10px;font-weight:800;letter-spacing:.5px;display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;margin-bottom:8px;}
-    .n-tag.c-new{background:#EDE6F9;color:var(--p1);}
-    .n-tag.c-tour{background:var(--pk3);color:var(--pk);}
-    .n-tag.c-member{background:#FFF3E0;color:#E08A00;}
-    .n-tag.c-award{background:#FFFBE0;color:#B08000;}
-    .n-title{font-size:14px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:5px;}
-    .n-body{font-size:12px;color:var(--text-2);line-height:1.65;}
-    .n-date{font-size:10px;color:var(--text-3);margin-top:8px;font-weight:600;letter-spacing:.3px;}
+    /* MEMBER DETAIL */
+    .detail-view{display:none}
+    .detail-view.active{display:block}
+    .dh{position:relative;overflow:hidden}
+    .dh-img{width:100%;height:260px;object-fit:cover;display:block;background:#1a0d2e}
+    .dh-fallback{width:100%;height:260px;display:none;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:80px;letter-spacing:4px}
+    .dh-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,3,25,.92) 0%,rgba(10,3,25,.3) 55%,transparent 100%)}
+    .dh-back{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2)}
+    .dh-back i{color:#fff;font-size:19px}
+    .dh-info{position:absolute;bottom:0;left:0;right:0;padding:16px}
+    .dh-name{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:3px;color:#fff;line-height:1}
+    .dh-pos{font-size:12px;color:rgba(255,255,255,.7);margin-top:3px;font-weight:600}
+    .db{padding:1rem}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+    .stat{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center}
+    .sv{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--p1)}
+    .sl{font-size:9px;color:var(--text-3);font-weight:700;letter-spacing:.3px;margin-top:2px}
+    .df{background:var(--gd2);border-radius:14px;padding:14px 16px;margin-bottom:10px;border:1px solid var(--border)}
+    .df-l{font-size:10px;font-weight:800;color:var(--p1);letter-spacing:1px;margin-bottom:6px}
+    .df-t{font-size:13px;color:var(--text-2);line-height:1.65}
 
-    /* ── MEMBERS ── */
-    .members-wrap{padding:0 1rem 1rem;}
-    .member-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding-top:1rem;}
-    .member-card{border-radius:18px;overflow:hidden;cursor:pointer;position:relative;background:var(--surface-2);border:1.5px solid var(--border);transition:transform .15s,box-shadow .15s;}
-    .member-card:active{transform:scale(.97);}
-    .member-card:hover{box-shadow:var(--shadow);border-color:var(--p3);}
-    .member-thumb{width:100%;aspect-ratio:.85;object-fit:cover;display:block;}
-    .member-thumb-fb{width:100%;aspect-ratio:.85;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;}
-    .member-badge-wrap{position:absolute;top:10px;left:10px;}
-    .pos-badge{font-size:9px;font-weight:800;padding:3px 8px;border-radius:20px;background:rgba(123,94,167,.85);color:#fff;backdrop-filter:blur(4px);}
-    .member-footer{padding:10px 12px 12px;background:var(--surface);}
-    .mf-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--p1);}
-    .mf-country{font-size:11px;color:var(--text-3);font-weight:600;margin-top:1px;}
+    /* GALERIA */
+    .gallery-wrap{padding:0 1rem 1rem}
+    .gallery-tabs{display:flex;gap:8px;padding:1rem 0 .5rem;overflow-x:auto;scrollbar-width:none}
+    .gallery-tabs::-webkit-scrollbar{display:none}
+    .gtab{background:var(--surface-1);border:1.5px solid var(--border);border-radius:25px;padding:7px 16px;font-size:12px;font-weight:700;color:var(--text-3);cursor:pointer;white-space:nowrap;transition:all .2s;font-family:'Inter',sans-serif}
+    .gtab.active{background:var(--gd3);border-color:transparent;color:#fff}
+    .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+    .gallery-grid.col3{grid-template-columns:repeat(3,1fr);gap:6px}
+    .gi{border-radius:12px;overflow:hidden;cursor:pointer;position:relative;background:#1a0d2e;aspect-ratio:1}
+    .gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+    .gi:hover img{transform:scale(1.06)}
+    .gi-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,3,25,.7) 0%,transparent 60%);opacity:0;transition:opacity .2s}
+    .gi:hover .gi-overlay{opacity:1}
+    .gi-label{position:absolute;bottom:0;left:0;right:0;padding:8px;font-size:11px;font-weight:700;color:#fff;transform:translateY(4px);transition:transform .2s;opacity:0}
+    .gi:hover .gi-label{opacity:1;transform:translateY(0)}
+    .gi-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+    .gi-play-btn{width:40px;height:40px;border-radius:50%;background:rgba(123,94,167,.85);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+    .gi:hover .gi-play-btn{opacity:1}
+    .gallery-section{display:none}
+    .gallery-section.active{display:block}
 
-    /* ── DETAIL ── */
-    .detail-view{display:none;}
-    .detail-view.active{display:block;}
-    .detail-hero{position:relative;overflow:hidden;}
-    .detail-img{width:100%;height:240px;object-fit:cover;display:block;}
-    .detail-img-fb{width:100%;height:240px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:72px;letter-spacing:4px;}
-    .detail-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,5,20,.9) 0%,transparent 60%);}
-    .detail-back{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(8px);}
-    .detail-back i{color:#fff;font-size:18px;}
-    .detail-name-wrap{position:absolute;bottom:0;left:0;right:0;padding:16px;}
-    .d-full-name{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:#fff;line-height:1;}
-    .d-pos{font-size:12px;color:rgba(255,255,255,.75);margin-top:3px;font-weight:600;}
-    .detail-body{padding:1rem;}
-    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
-    .stat-box{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center;}
-    .stat-val{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--p1);}
-    .stat-label{font-size:9px;color:var(--text-3);font-weight:700;letter-spacing:.3px;margin-top:2px;}
-    .d-fact{background:var(--gd2);border-radius:14px;padding:14px 16px;margin-bottom:10px;border:1px solid var(--border);}
-    .d-fact-label{font-size:10px;font-weight:800;color:var(--p1);letter-spacing:1px;margin-bottom:6px;}
-    .d-fact-text{font-size:13px;color:var(--text-2);line-height:1.65;}
+    /* MUSIC */
+    .music-wrap{padding:0 1rem 1rem}
+    .mv-card{border-radius:18px;overflow:hidden;margin-bottom:14px;border:1.5px solid var(--border);background:var(--surface)}
+    .mv-thumb{position:relative;cursor:pointer;background:#1a0d2e}
+    .mv-thumb img{width:100%;height:185px;object-fit:cover;display:block;transition:opacity .2s}
+    .mv-thumb:hover img{opacity:.85}
+    .mv-grad{position:absolute;inset:0;background:linear-gradient(135deg,rgba(123,94,167,.25),rgba(232,98,154,.15))}
+    .mv-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+    .mv-play{width:56px;height:56px;border-radius:50%;background:var(--gd3);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(123,94,167,.5)}
+    .mv-new{position:absolute;top:12px;right:12px;background:var(--gd3);color:#fff;font-size:9px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1px}
+    .mv-body{padding:12px 14px 14px}
+    .mv-ep{font-size:10px;font-weight:800;background:var(--gd2);color:var(--p1);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:7px;border:1px solid var(--border)}
+    .mv-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--text)}
+    .mv-meta{font-size:11px;color:var(--text-3);margin-top:3px;line-height:1.5;font-weight:500}
+    .mv-btn{margin-top:10px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:none;border:1.5px solid var(--border-s);border-radius:var(--radius);font-size:13px;font-weight:700;font-family:'Inter',sans-serif;color:var(--p1);cursor:pointer;transition:background .15s}
+    .mv-btn:hover{background:var(--surface-1)}
 
-    /* ── MUSIC ── */
-    .music-wrap{padding:0 1rem 1rem;}
-    .mv-card{border-radius:18px;overflow:hidden;margin-bottom:14px;border:1.5px solid var(--border);background:var(--surface);}
-    .mv-thumb{position:relative;cursor:pointer;}
-    .mv-thumb img{width:100%;height:188px;object-fit:cover;display:block;}
-    .mv-gradient{position:absolute;inset:0;background:linear-gradient(135deg,rgba(123,94,167,.3),rgba(232,98,154,.2));}
-    .mv-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-    .play-btn{width:56px;height:56px;border-radius:50%;background:var(--gd3);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(123,94,167,.5);}
-    .new-ribbon{position:absolute;top:12px;right:12px;background:var(--gd3);color:#fff;font-size:9px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:1px;}
-    .mv-body{padding:12px 14px 14px;}
-    .mv-ep-tag{font-size:10px;font-weight:800;background:var(--gd2);color:var(--p1);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:7px;border:1px solid var(--border);}
-    .mv-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--text);}
-    .mv-meta{font-size:11px;color:var(--text-3);margin-top:3px;line-height:1.5;font-weight:500;}
-    .mv-yt-btn{margin-top:10px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:none;border:1.5px solid var(--border-s);border-radius:var(--radius);font-size:13px;font-weight:700;font-family:'Inter',sans-serif;color:var(--p1);cursor:pointer;transition:background .15s;}
-    .mv-yt-btn:hover{background:var(--surface-1);}
+    /* DISCO */
+    .disco-wrap{padding:0 1rem 1rem}
+    .disc-card{border-radius:16px;overflow:hidden;margin-bottom:14px;border:1.5px solid var(--border)}
+    .disc-card.isnew .dh2{background:var(--gd3)}
+    .disc-card.isnew .dt,.disc-card.isnew .dtitle,.disc-card.isnew .ddate{color:#fff}
+    .dh2{background:var(--gd2);padding:14px 16px}
+    .dt{font-size:10px;font-weight:800;letter-spacing:1px;opacity:.8;display:block;margin-bottom:4px}
+    .dtitle{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--p1)}
+    .ddate{font-size:11px;color:var(--text-3);font-weight:600;margin-top:3px}
+    .dtracks{background:var(--surface);padding:10px 16px 12px}
+    .tr{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:13px;border-bottom:.5px solid var(--border)}
+    .tr:last-child{border-bottom:none}
+    .tn{font-size:10px;color:var(--text-3);min-width:18px;font-weight:700}
+    .tnew{color:var(--p1);font-weight:700}
 
-    /* ── DISCO ── */
-    .disco-wrap{padding:0 1rem 1rem;}
-    .disc-card{border-radius:16px;overflow:hidden;margin-bottom:14px;border:1.5px solid var(--border);}
-    .disc-card.is-new .disc-header{background:var(--gd3);}
-    .disc-card.is-new .disc-type-badge,.disc-card.is-new .disc-h-title,.disc-card.is-new .disc-h-date{color:#fff;}
-    .disc-header{background:var(--gd2);padding:14px 16px;}
-    .disc-type-badge{font-size:10px;font-weight:800;letter-spacing:1px;opacity:.8;display:block;margin-bottom:4px;}
-    .disc-h-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--p1);}
-    .disc-h-date{font-size:11px;color:var(--text-3);font-weight:600;margin-top:3px;}
-    .disc-tracks{background:var(--surface);padding:10px 16px 12px;}
-    .track-row{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:13px;border-bottom:.5px solid var(--border);}
-    .track-row:last-child{border-bottom:none;}
-    .track-num{font-size:10px;color:var(--text-3);min-width:18px;font-weight:700;}
-    .track-new{color:var(--p1);font-weight:700;}
+    /* QUIZ */
+    .quiz-wrap{padding:1rem}
+    .quiz-hdr{background:var(--gd3);border-radius:16px;padding:16px;margin-bottom:16px;text-align:center}
+    .quiz-hdr-t{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:#fff}
+    .quiz-hdr-s{font-size:11px;color:rgba(255,255,255,.8)}
+    .qpt{font-size:11px;color:var(--text-3);margin-bottom:7px;font-weight:700}
+    .qbar{height:4px;background:var(--border);border-radius:2px;margin-bottom:16px;overflow:hidden}
+    .qfill{height:100%;background:var(--gd3);border-radius:2px;transition:width .4s}
+    .qq{font-size:15px;font-weight:800;line-height:1.5;margin-bottom:16px;color:var(--text)}
+    .qopts{display:flex;flex-direction:column;gap:10px}
+    .qo{background:var(--surface-1);border:1.5px solid var(--border);border-radius:12px;padding:12px 15px;text-align:left;cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;font-weight:600;color:var(--text);transition:all .15s}
+    .qo:hover{border-color:var(--p2);background:var(--p4)}
+    .qo.correct{background:#EAF3DE;border-color:#639922;color:#3B6D11}
+    .qo.wrong{background:#FDEAF3;border-color:var(--pk);color:#993356}
+    .qres{text-align:center;padding:20px}
+    .qbig{font-family:'Bebas Neue',sans-serif;font-size:72px;letter-spacing:4px;background:var(--gd3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .qof{font-size:14px;color:var(--text-3);font-weight:700}
+    .qmsg{font-size:15px;color:var(--text-2);margin-top:12px;line-height:1.5;font-weight:700}
+    .qreplay{margin-top:20px;padding:13px 32px;background:var(--gd3);color:#fff;border:none;border-radius:25px;font-size:15px;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer}
 
-    /* ── QUIZ ── */
-    .quiz-wrap{padding:1rem;}
-    .quiz-header{background:var(--gd3);border-radius:16px;padding:16px;margin-bottom:16px;text-align:center;}
-    .quiz-header-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:#fff;}
-    .quiz-header-sub{font-size:11px;color:rgba(255,255,255,.8);}
-    .quiz-prog-txt{font-size:11px;color:var(--text-3);margin-bottom:8px;font-weight:600;}
-    .quiz-bar{height:4px;background:var(--border);border-radius:2px;margin-bottom:16px;overflow:hidden;}
-    .quiz-fill{height:100%;background:var(--gd3);border-radius:2px;transition:width .4s;}
-    .quiz-q{font-size:16px;font-weight:800;line-height:1.5;margin-bottom:16px;color:var(--text);}
-    .quiz-opts{display:flex;flex-direction:column;gap:10px;}
-    .q-opt{background:var(--surface-1);border:1.5px solid var(--border);border-radius:12px;padding:12px 15px;text-align:left;cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;font-weight:600;color:var(--text);transition:all .15s;}
-    .q-opt:hover{border-color:var(--p2);background:var(--p4);}
-    .q-opt.correct{background:#EAF3DE;border-color:#639922;color:#3B6D11;}
-    .q-opt.wrong{background:#FDEAF3;border-color:var(--pk);color:#993356;}
-    .quiz-result{text-align:center;padding:20px;}
-    .quiz-big{font-family:'Bebas Neue',sans-serif;font-size:72px;letter-spacing:4px;background:var(--gd3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    .quiz-of{font-size:14px;color:var(--text-3);font-weight:600;}
-    .quiz-msg{font-size:15px;color:var(--text-2);margin-top:12px;line-height:1.5;font-weight:600;}
-    .quiz-replay{margin-top:20px;padding:13px 32px;background:var(--gd3);color:#fff;border:none;border-radius:25px;font-size:15px;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer;letter-spacing:.5px;}
+    /* ABOUT */
+    .about-wrap{padding:0 0 1rem}
+    .about-hero{background:var(--gd3);padding:28px 20px;text-align:center;position:relative;overflow:hidden}
+    .about-hero::before{content:'💎';position:absolute;font-size:80px;opacity:.1;top:-10px;left:-10px;transform:rotate(-20deg)}
+    .about-hero::after{content:'💜';position:absolute;font-size:70px;opacity:.1;bottom:-10px;right:-10px;transform:rotate(20deg)}
+    .ah-logo{font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:8px;color:#fff}
+    .ah-h{font-size:16px;color:rgba(255,255,255,.65);margin-top:2px}
+    .ah-s{font-size:11px;color:rgba(255,255,255,.8);margin-top:8px;letter-spacing:1px}
+    .about-body{padding:1rem}
+    .ac{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px 16px;margin-bottom:12px;position:relative;overflow:hidden}
+    .ac::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gd3)}
+    .act{font-size:13px;font-weight:800;color:var(--p1);margin-bottom:8px;display:flex;align-items:center;gap:6px;letter-spacing:.3px}
+    .act i{font-size:15px;color:var(--pk)}
+    .act-t{font-size:13px;color:var(--text-2);line-height:1.65}
+    .tag-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+    .tag{font-size:12px;background:var(--surface-1);border:1px solid var(--border-s);border-radius:20px;padding:5px 12px;color:var(--p1);font-weight:700;text-decoration:none}
+    .msr{display:flex;gap:10px;padding:8px 0;border-bottom:.5px solid var(--border)}
+    .msr:last-child{border-bottom:none}
+    .msy{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:var(--pk);min-width:38px}
+    .mst{font-size:12px;color:var(--text-2);line-height:1.5}
 
-    /* ── ABOUT ── */
-    .about-wrap{padding:0 0 1rem;}
-    .about-hero{background:var(--gd3);padding:28px 20px;text-align:center;position:relative;overflow:hidden;}
-    .about-hero::before,.about-hero::after{content:'💜';position:absolute;font-size:60px;opacity:.12;}
-    .about-hero::before{top:-10px;left:-10px;transform:rotate(-20deg);}
-    .about-hero::after{bottom:-10px;right:-10px;transform:rotate(20deg);}
-    .ah-logo{font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:8px;color:#fff;}
-    .ah-hanja{font-size:16px;color:rgba(255,255,255,.7);margin-top:2px;}
-    .ah-sub{font-size:11px;color:rgba(255,255,255,.8);margin-top:8px;letter-spacing:1px;}
-    .about-body{padding:1rem;}
-    .about-card{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px 16px;margin-bottom:12px;overflow:hidden;position:relative;}
-    .about-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gd3);}
-    .ac-title{font-size:13px;font-weight:800;color:var(--p1);margin-bottom:8px;display:flex;align-items:center;gap:6px;letter-spacing:.3px;}
-    .ac-title i{font-size:16px;color:var(--pk);}
-    .ac-text{font-size:13px;color:var(--text-2);line-height:1.65;}
-    .tag-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;}
-    .tag{font-size:12px;background:var(--surface-1);border:1px solid var(--border-s);border-radius:20px;padding:5px 12px;color:var(--p1);font-weight:600;text-decoration:none;}
-    .ms-row{display:flex;gap:10px;padding:8px 0;border-bottom:.5px solid var(--border);}
-    .ms-row:last-child{border-bottom:none;}
-    .ms-year{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:var(--pk);min-width:38px;}
-    .ms-text{font-size:12px;color:var(--text-2);line-height:1.5;}
+    .app-footer{text-align:center;padding:16px;font-size:11px;color:var(--text-3);border-top:1px solid var(--border);font-weight:700;letter-spacing:.5px}
+    .ft-g{background:var(--gd3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-    .app-footer{text-align:center;padding:16px;font-size:11px;color:var(--text-3);border-top:1px solid var(--border);font-weight:600;letter-spacing:.5px;}
-    .footer-gem{background:var(--gd3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    /* LIGHTBOX */
+    .lightbox{position:fixed;inset:0;background:rgba(10,3,25,.95);z-index:999;display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px}
+    .lightbox.open{display:flex}
+    .lb-img{max-width:100%;max-height:70vh;border-radius:12px;object-fit:contain}
+    .lb-title{color:#fff;font-size:14px;font-weight:700;margin-top:12px;text-align:center}
+    .lb-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:20px}
+    .lb-nav{display:flex;gap:12px;margin-top:14px}
+    .lb-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:8px 20px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:700;font-family:'Inter',sans-serif}
   </style>
 </head>
 <body>
 <div class="shell">
 
-  <!-- HERO HEADER -->
   <header class="app-header">
-    <div class="header-bg"></div>
-    <div class="header-stars" id="stars"></div>
-    <div class="header-content">
-      <span class="gem-icon">💎</span>
-      <div class="app-logo">KATSEYE</div>
-      <div class="app-sub">EYEKONS FAN APP · BRASIL</div>
-      <div class="header-badges">
-        <span class="h-badge">EP WILD · 2026</span>
-        <span class="h-badge">6 MEMBROS</span>
-        <span class="h-badge">HYBE × GEFFEN</span>
+    <div class="hdr-bg"></div>
+    <div class="hdr-dots" id="dots"></div>
+    <div class="hdr-inner">
+      <span class="hdr-gem">💎</span>
+      <div class="hdr-logo">KATSEYE</div>
+      <div class="hdr-sub">EYEKONS FAN APP · BRASIL · 2026</div>
+      <div class="hdr-pills">
+        <span class="pill">EP WILD</span>
+        <span class="pill">6 MEMBROS</span>
+        <span class="pill">HYBE × GEFFEN</span>
       </div>
     </div>
   </header>
 
-  <!-- NAV -->
   <nav class="app-nav">
-    <button class="nav-btn active" onclick="showTab('news',this)"><i class="ti ti-news"></i>NOTÍCIAS</button>
+    <button class="nav-btn active" onclick="showTab('news',this)"><i class="ti ti-news"></i>NEWS</button>
     <button class="nav-btn" onclick="showTab('members',this)"><i class="ti ti-users"></i>MEMBROS</button>
-    <button class="nav-btn" onclick="showTab('music',this)"><i class="ti ti-player-play"></i>MÚSICAS</button>
-    <button class="nav-btn" onclick="showTab('disco',this)"><i class="ti ti-vinyl"></i>DISCO.</button>
+    <button class="nav-btn" onclick="showTab('gallery',this)"><i class="ti ti-photo"></i>FOTOS</button>
+    <button class="nav-btn" onclick="showTab('music',this)"><i class="ti ti-player-play"></i>MVs</button>
+    <button class="nav-btn" onclick="showTab('disco',this)"><i class="ti ti-vinyl"></i>DISCO</button>
     <button class="nav-btn" onclick="showTab('quiz',this)"><i class="ti ti-bulb"></i>QUIZ</button>
     <button class="nav-btn" onclick="showTab('about',this)"><i class="ti ti-info-circle"></i>SOBRE</button>
   </nav>
 
   <main>
-
-    <!-- NOTÍCIAS -->
+    <!-- NEWS -->
     <section id="tab-news" class="section active">
       <div class="news-hero">
-        <div class="news-hero-eyekon">💜 EYEKONS · ÚLTIMA HORA</div>
-        <div class="news-hero-title">EP WILD saiu! Tour mundial em setembro 🌍</div>
-        <div class="news-hero-sub">14 ago 2026 · HYBE × Geffen Records</div>
+        <div class="nh-tag">💜 EYEKONS · ÚLTIMA HORA</div>
+        <div class="nh-title">EP WILD saiu! Tour mundial em setembro 🌍</div>
+        <div class="nh-sub">14 ago 2026 · HYBE × Geffen Records</div>
       </div>
       <div class="news-list">
-
-        <div class="news-card c-new">
-          <span class="n-tag c-new">💿 NOVO EP</span>
-          <div class="n-title">EP "WILD" lançado em 14 de agosto de 2026</div>
-          <div class="n-body">O terceiro EP chegou com 5 faixas incríveis: Pinky Up, Animal, Hootie Frutti, Bel Air e That Way. "Animal" foi co-escrita por Ed Sheeran e estreou no #24 do Billboard Hot 100. "Hootie Frutti" tem intro em português e batida de funk brasileiro — uma homenagem ao Brasil!</div>
-          <div class="n-date">📅 14 AGO 2026</div>
-        </div>
-
-        <div class="news-card c-new">
-          <span class="n-tag c-new">🎬 DOCUMENTÁRIO</span>
-          <div class="n-title">KATSEYE: Wild Hearts nos cinemas mundiais</div>
-          <div class="n-body">O filme foi dirigido por Nadia Hallgren (diretora de "Becoming" com Michelle Obama) e estreou em 1.700 cinemas em mais de 60 países. Inclui vídeos dos EYEKONS, bastidores e entrevistas exclusivas das membros.</div>
-          <div class="n-date">📅 12 AGO 2026</div>
-        </div>
-
-        <div class="news-card c-tour">
-          <span class="n-tag c-tour">🎤 TOUR MUNDIAL</span>
-          <div class="n-title">Wildworld Tour: ingressos esgotaram em 48h</div>
-          <div class="n-body">31 shows pela Europa e América do Norte. Começa em 1º de setembro em Dublin e termina em 28 de novembro na Cidade do México. Todos os ingressos esgotaram em menos de 48 horas após abertura das vendas!</div>
-          <div class="n-date">📅 SET–NOV 2026</div>
-        </div>
-
-        <div class="news-card c-award">
-          <span class="n-tag c-award">🏆 GRAMMY 2026</span>
-          <div class="n-title">Indicadas ao Grammy em duas categorias</div>
-          <div class="n-body">Indicações para Melhor Artista Novo e Melhor Performance Pop em Duo/Grupo ("Gabriela"). Lideraram a lista Billboard "21 Under 21" de 2026 e foram capa da Allure (EUA, Coreia e Filipinas) e da Vanity Fair.</div>
-          <div class="n-date">📅 FEV 2026</div>
-        </div>
-
-        <div class="news-card c-member">
-          <span class="n-tag c-member">💜 MEMBROS</span>
-          <div class="n-title">Sophia e Manon em hiato temporário</div>
-          <div class="n-body">Manon está em hiato desde fevereiro de 2026. Sophia também anunciou pausa por saúde mental. Ambas seguem em contato com os EYEKONS e o grupo continua ativo com as demais integrantes no EP WILD e no Wildworld Tour.</div>
-          <div class="n-date">📅 2026</div>
-        </div>
-
-        <div class="news-card c-tour">
-          <span class="n-tag c-tour">🎪 COACHELLA 2026</span>
-          <div class="n-title">Performance histórica no maior festival do mundo</div>
-          <div class="n-body">KATSEYE se apresentou no palco Sahara do Coachella 2026 em abril. Foi durante a transmissão ao vivo que o EP WILD foi revelado acidentalmente — antes do anúncio oficial!</div>
-          <div class="n-date">📅 ABR 2026</div>
-        </div>
-
+        <div class="nc cn"><span class="nt cn">💿 NOVO EP</span><div class="n-title">EP "WILD" lançado em 14 de agosto de 2026</div><div class="n-body">5 faixas: Pinky Up, Animal, Hootie Frutti, Bel Air e That Way. "Animal" co-escrita por Ed Sheeran estreou no #24 Billboard Hot 100. "Hootie Frutti" tem intro em português e batida de funk brasileiro!</div><div class="n-date">📅 14 AGO 2026</div></div>
+        <div class="nc cn"><span class="nt cn">🎬 DOCUMENTÁRIO</span><div class="n-title">KATSEYE: Wild Hearts em 1.700 cinemas mundiais</div><div class="n-body">Dirigido por Nadia Hallgren (diretora de "Becoming" com Michelle Obama). Estreou em mais de 60 países com bastidores exclusivos e vídeos dos EYEKONS.</div><div class="n-date">📅 12 AGO 2026</div></div>
+        <div class="nc ct"><span class="nt ct">🎤 TOUR MUNDIAL</span><div class="n-title">Wildworld Tour: ingressos esgotados em 48h</div><div class="n-body">31 shows pela Europa e América do Norte. Dublin em 1º set → Cidade do México em 28 nov. Todos esgotados em menos de 48 horas!</div><div class="n-date">📅 SET–NOV 2026</div></div>
+        <div class="nc ca"><span class="nt ca">🏆 GRAMMY 2026</span><div class="n-title">Indicadas em duas categorias no Grammy</div><div class="n-body">Melhor Artista Novo e Melhor Performance Pop Duo/Grupo ("Gabriela"). Lideraram a lista Billboard "21 Under 21" e foram capa da Vanity Fair e Allure.</div><div class="n-date">📅 FEV 2026</div></div>
+        <div class="nc cm"><span class="nt cm">💜 MEMBROS</span><div class="n-title">Sophia e Manon em hiato temporário</div><div class="n-body">Manon em hiato desde fev/2026. Sophia anunciou pausa por saúde mental em ago/2026. As duas seguem em contato com os EYEKONS e apoiando o grupo.</div><div class="n-date">📅 2026</div></div>
+        <div class="nc ct"><span class="nt ct">🎪 COACHELLA 2026</span><div class="n-title">Performance histórica no Sahara Stage</div><div class="n-body">Foi durante o Coachella que o EP WILD foi revelado acidentalmente pela transmissão ao vivo — antes do anúncio oficial!</div><div class="n-date">📅 ABR 2026</div></div>
       </div>
     </section>
 
-    <!-- MEMBROS -->
+    <!-- MEMBERS -->
     <section id="tab-members" class="section">
       <div class="members-wrap">
         <div class="member-grid" id="member-grid"></div>
@@ -292,65 +272,68 @@
       <div id="detail-content"></div>
     </div>
 
-    <!-- MÚSICAS -->
+    <!-- GALLERY -->
+    <section id="tab-gallery" class="section">
+      <div class="sec-title">GALERIA<span> 📸</span></div>
+      <div class="gallery-wrap">
+        <div class="gallery-tabs">
+          <button class="gtab active" onclick="showGallery('all',this)">✨ Todas</button>
+          <button class="gtab" onclick="showGallery('shows',this)">🎤 Shows</button>
+          <button class="gtab" onclick="showGallery('mv',this)">🎬 MVs</button>
+          <button class="gtab" onclick="showGallery('sophia',this)">Sophia</button>
+          <button class="gtab" onclick="showGallery('manon',this)">Manon</button>
+          <button class="gtab" onclick="showGallery('daniela',this)">Daniela</button>
+          <button class="gtab" onclick="showGallery('lara',this)">Lara</button>
+          <button class="gtab" onclick="showGallery('megan',this)">Megan</button>
+          <button class="gtab" onclick="showGallery('yoonchae',this)">Yoonchae</button>
+        </div>
+        <div id="gallery-grid" class="gallery-grid col3"></div>
+      </div>
+    </section>
+
+    <!-- MUSIC -->
     <section id="tab-music" class="section">
-      <div class="sec-title">MÚSICAS<span>▶</span></div>
+      <div class="sec-title">MUSIC VIDEOS<span> ▶</span></div>
       <div class="music-wrap" id="music-list"></div>
     </section>
 
     <!-- DISCO -->
     <section id="tab-disco" class="section">
-      <div class="sec-title">DISCOGRAFIA<span>♫</span></div>
+      <div class="sec-title">DISCOGRAFIA<span> ♫</span></div>
       <div class="disco-wrap" id="disco-list"></div>
     </section>
 
     <!-- QUIZ -->
     <section id="tab-quiz" class="section">
       <div class="quiz-wrap">
-        <div class="quiz-header">
-          <div class="quiz-header-title">EYEKON QUIZ</div>
-          <div class="quiz-header-sub">Quanto você sabe sobre KATSEYE? 💜</div>
+        <div class="quiz-hdr">
+          <div class="quiz-hdr-t">EYEKON QUIZ</div>
+          <div class="quiz-hdr-s">Quanto você sabe sobre KATSEYE? 💜</div>
         </div>
         <div id="quiz-content"></div>
       </div>
     </section>
 
-    <!-- SOBRE -->
+    <!-- ABOUT -->
     <section id="tab-about" class="section">
       <div class="about-wrap">
         <div class="about-hero">
           <div class="ah-logo">KATSEYE</div>
-          <div class="ah-hanja">캣츠아이</div>
-          <div class="ah-sub">GLOBAL GIRL GROUP · HYBE × GEFFEN RECORDS · LA, USA</div>
+          <div class="ah-h">캣츠아이</div>
+          <div class="ah-s">GLOBAL GIRL GROUP · HYBE × GEFFEN · LA, USA</div>
         </div>
         <div class="about-body">
-          <div class="about-card">
-            <div class="ac-title"><i class="ti ti-diamond"></i>ORIGEM DO NOME</div>
-            <div class="ac-text">Inspirado na pedra preciosa "olho de gato" (chrysoberyl) — iridescente e única. Cada cor da pedra representa uma membro. A troca do "C" pelo "K" foi ideia da Lara para ficar mais cool.</div>
+          <div class="ac"><div class="act"><i class="ti ti-diamond"></i>ORIGEM DO NOME</div><div class="act-t">Inspirado na pedra "olho de gato" (chrysoberyl). Cada cor representa uma membro. A troca do "C" pelo "K" foi ideia da Lara.</div></div>
+          <div class="ac"><div class="act"><i class="ti ti-tv"></i>COMO SURGIU</div><div class="act-t">Formado em 2023 pelo reality <strong>The Debut: Dream Academy</strong> — colaboração entre HYBE (BTS, LE SSERAFIM) e Geffen Records. Documentado na Netflix em <strong>Pop Star Academy: KATSEYE</strong>.</div></div>
+          <div class="ac"><div class="act"><i class="ti ti-heart"></i>FANDOM</div><div class="act-t"><strong>EYEKONS</strong> — "eye" + "icon". Fãs brasileiros estão entre os mais ativos globalmente.</div></div>
+          <div class="ac"><div class="act"><i class="ti ti-flag"></i>PAÍSES</div><div class="tag-row"><span class="tag">🇺🇸 EUA</span><span class="tag">🇰🇷 Coreia</span><span class="tag">🇵🇭 Filipinas</span><span class="tag">🇨🇭 Suíça</span><span class="tag">🇩🇪 Alemanha</span></div></div>
+          <div class="ac"><div class="act"><i class="ti ti-timeline"></i>LINHA DO TEMPO</div>
+            <div class="msr"><span class="msy">2023</span><span class="mst">Formadas no Dream Academy</span></div>
+            <div class="msr"><span class="msy">2024</span><span class="mst">Estreia · EP SIS · Touch viraliza · Gap ad 400M+ views</span></div>
+            <div class="msr"><span class="msy">2025</span><span class="mst">Gnarly Hot 100 · EP Beautiful Chaos · Grammy · VMAs</span></div>
+            <div class="msr"><span class="msy">2026</span><span class="mst">Coachella · EP WILD · Animal #24 · Wildworld Tour</span></div>
           </div>
-          <div class="about-card">
-            <div class="ac-title"><i class="ti ti-tv"></i>COMO SURGIU</div>
-            <div class="ac-text">Formado em 2023 pelo reality <strong>The Debut: Dream Academy</strong> — colaboração inédita entre HYBE (BTS, LE SSERAFIM) e Geffen Records (Universal). Documentado na Netflix em <strong>Pop Star Academy: KATSEYE</strong>.</div>
-          </div>
-          <div class="about-card">
-            <div class="ac-title"><i class="ti ti-heart"></i>FANDOM</div>
-            <div class="ac-text"><strong>EYEKONS</strong> — "eye" + "icon". Os fãs brasileiros são uma das comunidades mais ativas do mundo, com fan cams, legendas e trending no Twitter/X.</div>
-          </div>
-          <div class="about-card">
-            <div class="ac-title"><i class="ti ti-flag"></i>PAÍSES</div>
-            <div class="tag-row">
-              <span class="tag">🇺🇸 EUA</span><span class="tag">🇰🇷 Coreia</span><span class="tag">🇵🇭 Filipinas</span><span class="tag">🇨🇭 Suíça</span><span class="tag">🇩🇪 Alemanha</span>
-            </div>
-          </div>
-          <div class="about-card">
-            <div class="ac-title"><i class="ti ti-timeline"></i>LINHA DO TEMPO</div>
-            <div class="ms-row"><span class="ms-year">2023</span><span class="ms-text">Formadas no Dream Academy (novembro)</span></div>
-            <div class="ms-row"><span class="ms-year">2024</span><span class="ms-text">Estreia · EP SIS · Touch viraliza · Gap ad 400M+ views</span></div>
-            <div class="ms-row"><span class="ms-year">2025</span><span class="ms-text">Gnarly no Hot 100 · EP Beautiful Chaos · Grammy nominadas</span></div>
-            <div class="ms-row"><span class="ms-year">2026</span><span class="ms-text">Coachella · EP WILD · Animal #24 Hot 100 · Wildworld Tour</span></div>
-          </div>
-          <div class="about-card">
-            <div class="ac-title"><i class="ti ti-world"></i>LINKS OFICIAIS</div>
+          <div class="ac"><div class="act"><i class="ti ti-world"></i>LINKS OFICIAIS</div>
             <div class="tag-row">
               <a class="tag" href="https://www.youtube.com/@katseyeworld" target="_blank">▶ YouTube</a>
               <a class="tag" href="https://www.instagram.com/katseyeworld" target="_blank">📸 Instagram</a>
@@ -361,88 +344,140 @@
         </div>
       </div>
     </section>
-
   </main>
-  <footer class="app-footer">
-    <span class="footer-gem">💎 KATSEYE FAN APP</span> · EYEKONS BRASIL · AGO 2026
-  </footer>
+
+  <footer class="app-footer"><span class="ft-g">💎 KATSEYE FAN APP</span> · EYEKONS BRASIL · AGO 2026</footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lb" onclick="closeLB(event)">
+  <button class="lb-close" onclick="closeLB()"><i class="ti ti-x"></i></button>
+  <img class="lb-img" id="lb-img" src="" alt=""/>
+  <div class="lb-title" id="lb-title"></div>
+  <div class="lb-nav">
+    <button class="lb-btn" onclick="lbNav(-1)">← Anterior</button>
+    <button class="lb-btn" onclick="lbNav(1)">Próxima →</button>
+  </div>
 </div>
 
 <script>
-/* ──────────── STARS ANIMATION ──────────── */
+/* ── dots ── */
 (function(){
-  const c=document.getElementById('stars');
-  for(let i=0;i<18;i++){
-    const s=document.createElement('div');
-    s.className='star';
-    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;opacity:${.3+Math.random()*.6}`;
-    c.appendChild(s);
+  const c=document.getElementById('dots');
+  for(let i=0;i<20;i++){
+    const d=document.createElement('div');d.className='dot';
+    const s=2+Math.random()*4;
+    d.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${s}px;height:${s}px;opacity:${.15+Math.random()*.5}`;
+    c.appendChild(d);
   }
 })();
 
-/* ──────────── DATA ──────────── */
+/* ── DATA ── */
 const MEMBERS=[
   {name:"Sophia",full:"Sophia Laforteza",country:"🇵🇭 Filipinas",pos:"Líder · Vocal Principal",
-   color:"#EEEDFE",tc:"#534AB7",grad:"linear-gradient(135deg,#EEEDFE,#D4A8F0)",
-   birth:"2005",height:"167 cm",debut:"#1",mbti:"ENFJ",ytThumb:"bYg6aMDQ_TA",
-   fact:"Chef do grupo e apareceu no Family Feud Philippines (2022). Em hiato temporário por saúde mental em 2026, mas segue apoiando as companheiras."},
+   grad:"linear-gradient(135deg,#EEEDFE,#D4A8F0)",tc:"#534AB7",
+   birth:"2002",height:"167",dream:"#1",mbti:"ENFJ",
+   /* foto individual: thumbnail do MV de estreia onde ela aparece em destaque no início */
+   photo:"https://img.youtube.com/vi/bYg6aMDQ_TA/hqdefault.jpg",
+   fact:"Chef do grupo, fã de BTS (bias: V) e maior inspiração: Miley Cyrus e Ariana Grande. Primeira filipina a assinar com uma label HYBE. Em hiato por saúde mental desde ago/2026."},
   {name:"Manon",full:"Manon Bannerman",country:"🇨🇭 Suíça / 🇩🇪 Alemanha",pos:"Vocal · Performance",
-   color:"#FBEAF0",tc:"#993556",grad:"linear-gradient(135deg,#FBEAF0,#F4C0D1)",
-   birth:"2005",height:"168 cm",debut:"#6",mbti:"ISFP",ytThumb:"R2-yomhYAj4",
-   fact:"Trilíngue: inglês, francês e alemão. Em hiato desde fev/2026. Não participou do EP WILD, mas afirmou estar feliz e saudável."},
+   grad:"linear-gradient(135deg,#FBEAF0,#F4C0D1)",tc:"#993556",
+   birth:"2002",height:"168",dream:"#6",mbti:"ISFP",
+   photo:"https://img.youtube.com/vi/R2-yomhYAj4/hqdefault.jpg",
+   fact:"Trilíngue (inglês, alemão, francês) e aprendendo espanhol com Daniela. Primeira artista negra do HYBE. Em hiato desde fev/2026 — disse estar 'feliz e saudável'."},
   {name:"Daniela",full:"Daniela Avanzini",country:"🇺🇸 EUA",pos:"Rap · Performance",
-   color:"#E1F5EE",tc:"#0F6E56",grad:"linear-gradient(135deg,#E1F5EE,#9FE1CB)",
-   birth:"2005",height:"163 cm",debut:"#3",mbti:"ENFP",ytThumb:"CjnB56tSCQI",
-   fact:"De ascendência italiana e mexicana. Energia explosiva no palco — destaque especial no MV de Hootie Frutti com a coreografia intensa."},
+   grad:"linear-gradient(135deg,#E1F5EE,#9FE1CB)",tc:"#0F6E56",
+   birth:"2004",height:"163",dream:"#3",mbti:"ENFP",
+   photo:"https://img.youtube.com/vi/CjnB56tSCQI/hqdefault.jpg",
+   fact:"De ascendência italiana e mexicana. 'Enquanto me sentir confiante, tudo bem' (ELLE, 2025). Destaque absoluto no MV de Hootie Frutti com sua coreografia intensa."},
   {name:"Lara",full:"Lara Rajagopalan",country:"🇺🇸 EUA",pos:"Rap · Vocal",
-   color:"#FAECE7",tc:"#993C1D",grad:"linear-gradient(135deg,#FAECE7,#F5C4B3)",
-   birth:"2005",height:"165 cm",debut:"#2",mbti:"ESTP",ytThumb:"l9CZykYZkOQ",
-   fact:"Sugeriu o K no nome KATSEYE. Em entrevista sobre WILD disse: 'É uma evolução real — há um pedaço físico de nós nessa música.'"},
+   grad:"linear-gradient(135deg,#FAECE7,#F5C4B3)",tc:"#993C1D",
+   birth:"2005",height:"165",dream:"#2",mbti:"ESTP",
+   photo:"https://img.youtube.com/vi/l9CZykYZkOQ/hqdefault.jpg",
+   fact:"Sugeriu o 'K' no nome KATSEYE. De ascendência indiana. Sobre o EP WILD: 'É uma evolução real e bonita — há um pedaço físico de nós nessa música.'"},
   {name:"Megan",full:"Megan Skiendiel",country:"🇺🇸 EUA",pos:"Main Dancer · Vocal",
-   color:"#E6F1FB",tc:"#185FA5",grad:"linear-gradient(135deg,#E6F1FB,#B5D4F4)",
-   birth:"2006",height:"167 cm",debut:"#5",mbti:"INFP",ytThumb:"7F1ET2XHQfk",
-   fact:"Principal dançarina do grupo. A coreografia de Hootie Frutti foi um dos maiores destaques do Coachella 2026."},
+   grad:"linear-gradient(135deg,#E6F1FB,#B5D4F4)",tc:"#185FA5",
+   birth:"2006",height:"167",dream:"#5",mbti:"INFP",
+   photo:"https://img.youtube.com/vi/7F1ET2XHQfk/hqdefault.jpg",
+   fact:"Cresceu no Havaí dançando, modelando e tocando ukulele. 'Adoro ser livre e confiante no palco' (ELLE, 2025). Principal dançarina — destaque no Coachella 2026."},
   {name:"Yoonchae",full:"Jeong Yoonchae",country:"🇰🇷 Coreia do Sul",pos:"Vocal · Maknae",
-   color:"#FAEEDA",tc:"#854F0B",grad:"linear-gradient(135deg,#FAEEDA,#FAC775)",
-   birth:"2007",height:"160 cm",debut:"#4",mbti:"INFJ",ytThumb:"47Vns1d4tHA",
-   fact:"A caçula do grupo. Muito elogiada pela evolução vocal no EP WILD. Apareceu no documentário Wild Hearts e é uma das favoritas dos fãs coreanos."},
+   grad:"linear-gradient(135deg,#FAEEDA,#FAC775)",tc:"#854F0B",
+   birth:"2007",height:"160",dream:"#4",mbti:"INFJ",
+   photo:"https://img.youtube.com/vi/47Vns1d4tHA/hqdefault.jpg",
+   fact:"A caçula do grupo. Muito elogiada pela evolução vocal no WILD. Colaborou com Yeonjun do TXT no SBS Gayo Daejeon 2025 — vídeo passou 1M de views em 1 dia."},
 ];
 
+/* galeria: usamos thumbnails de vídeos oficiais do canal KATSEYE em diferentes formatos
+   (hqdefault = 480x360, mqdefault = 320x180, sddefault = 640x480)
+   para simular fotos individuais e de shows, aproveitando frames distintos */
+const GALLERY=[
+  /* === SHOWS / APRESENTAÇÕES === */
+  {src:"https://img.youtube.com/vi/R2-yomhYAj4/sddefault.jpg",label:"Gnarly · M Countdown 2025",cat:["shows","all"]},
+  {src:"https://img.youtube.com/vi/PkMKJEkE8Mo/sddefault.jpg",label:"Gnarly · Choreography Ver.",cat:["shows","all"]},
+  {src:"https://img.youtube.com/vi/co-TFLbaZAE/sddefault.jpg",label:"Gabriela · Performance Video",cat:["shows","all"]},
+  {src:"https://img.youtube.com/vi/8g7VclWsiaM/sddefault.jpg",label:"Pinky Up · Choreography Ver.",cat:["shows","all"]},
+  {src:"https://img.youtube.com/vi/3GCVuKFW56g/sddefault.jpg",label:"Pinky Up · Coachella 2026",cat:["shows","all"]},
+  {src:"https://img.youtube.com/vi/29cIInKfUFU/sddefault.jpg",label:"Pinky Up · Behind The Scenes",cat:["shows","all"]},
+  /* === MVs === */
+  {src:"https://img.youtube.com/vi/bYg6aMDQ_TA/sddefault.jpg",label:"Debut · Official MV",cat:["mv","all"]},
+  {src:"https://img.youtube.com/vi/l9CZykYZkOQ/sddefault.jpg",label:"Touch · Official MV",cat:["mv","all"]},
+  {src:"https://img.youtube.com/vi/R2-yomhYAj4/hqdefault.jpg",label:"Gnarly · Official MV",cat:["mv","all"]},
+  {src:"https://img.youtube.com/vi/CjnB56tSCQI/hqdefault.jpg",label:"Gabriela · Official MV",cat:["mv","all"]},
+  {src:"https://img.youtube.com/vi/7F1ET2XHQfk/hqdefault.jpg",label:"Pinky Up · Official MV",cat:["mv","all"]},
+  {src:"https://img.youtube.com/vi/47Vns1d4tHA/hqdefault.jpg",label:"Hootie Frutti · Official MV",cat:["mv","all"]},
+  /* === SOPHIA === */
+  {src:"https://img.youtube.com/vi/bYg6aMDQ_TA/sddefault.jpg",label:"Sophia · Debut MV",cat:["sophia","all"]},
+  {src:"https://img.youtube.com/vi/bYg6aMDQ_TA/hqdefault.jpg",label:"Sophia · Debut Teaser",cat:["sophia","all"]},
+  {src:"https://img.youtube.com/vi/ON5LQhXrTgQ/sddefault.jpg",label:"Sophia · Teen Vogue 2025",cat:["sophia","all"]},
+  /* === MANON === */
+  {src:"https://img.youtube.com/vi/R2-yomhYAj4/sddefault.jpg",label:"Manon · Gnarly MV",cat:["manon","all"]},
+  {src:"https://img.youtube.com/vi/R2-yomhYAj4/hqdefault.jpg",label:"Manon · Gnarly Frame",cat:["manon","all"]},
+  {src:"https://img.youtube.com/vi/ON5LQhXrTgQ/hqdefault.jpg",label:"Manon · Teen Vogue",cat:["manon","all"]},
+  /* === DANIELA === */
+  {src:"https://img.youtube.com/vi/CjnB56tSCQI/sddefault.jpg",label:"Daniela · Gabriela MV",cat:["daniela","all"]},
+  {src:"https://img.youtube.com/vi/47Vns1d4tHA/sddefault.jpg",label:"Daniela · Hootie Frutti",cat:["daniela","all"]},
+  {src:"https://img.youtube.com/vi/CjnB56tSCQI/hqdefault.jpg",label:"Daniela · Gabriela Frame",cat:["daniela","all"]},
+  /* === LARA === */
+  {src:"https://img.youtube.com/vi/l9CZykYZkOQ/sddefault.jpg",label:"Lara · Touch MV",cat:["lara","all"]},
+  {src:"https://img.youtube.com/vi/7F1ET2XHQfk/sddefault.jpg",label:"Lara · Pinky Up MV",cat:["lara","all"]},
+  {src:"https://img.youtube.com/vi/l9CZykYZkOQ/hqdefault.jpg",label:"Lara · Touch Frame",cat:["lara","all"]},
+  /* === MEGAN === */
+  {src:"https://img.youtube.com/vi/7F1ET2XHQfk/hqdefault.jpg",label:"Megan · Pinky Up MV",cat:["megan","all"]},
+  {src:"https://img.youtube.com/vi/8g7VclWsiaM/hqdefault.jpg",label:"Megan · Pinky Up Choreo",cat:["megan","all"]},
+  {src:"https://img.youtube.com/vi/PkMKJEkE8Mo/hqdefault.jpg",label:"Megan · Gnarly Choreo",cat:["megan","all"]},
+  /* === YOONCHAE === */
+  {src:"https://img.youtube.com/vi/47Vns1d4tHA/hqdefault.jpg",label:"Yoonchae · Hootie Frutti",cat:["yoonchae","all"]},
+  {src:"https://img.youtube.com/vi/bh6ySAGpYzw/hqdefault.jpg",label:"Yoonchae · Animal MV",cat:["yoonchae","all"]},
+  {src:"https://img.youtube.com/vi/co-TFLbaZAE/hqdefault.jpg",label:"Yoonchae · Gabriela Perf.",cat:["yoonchae","all"]},
+];
+
+let lbItems=[], lbIdx=0;
+
 const VIDEOS=[
-  {ytId:"47Vns1d4tHA",title:"Hootie Frutti",badge:"🌶 EP WILD · Funk brasileiro",isNew:true,
-   meta:"14 ago 2026 · Intro em português · Direção: Alfred Marroquin"},
-  {ytId:"bh6ySAGpYzw",title:"Animal",badge:"✍️ Ed Sheeran · #24 Hot 100",isNew:true,
-   meta:"24 jul 2026 · EP WILD · Videoclipe com Demi Moore"},
-  {ytId:"7F1ET2XHQfk",title:"Pinky Up",badge:"⚡ Coachella 2026 · EP WILD",isNew:true,
-   meta:"9 abr 2026 · Hyperpop / techno-pop"},
-  {ytId:"CjnB56tSCQI",title:"Gabriela",badge:"🏆 Grammy 2026 nominada",isNew:false,
-   meta:"20 jun 2025 · EP Beautiful Chaos"},
-  {ytId:"R2-yomhYAj4",title:"Gnarly",badge:"📊 1º Hit no Billboard Hot 100",isNew:false,
-   meta:"30 abr 2025 · EP Beautiful Chaos"},
-  {ytId:"l9CZykYZkOQ",title:"Touch",badge:"🔥 Viral no TikTok · Remix c/ TXT",isNew:false,
-   meta:"26 jul 2024 · EP SIS"},
-  {ytId:"bYg6aMDQ_TA",title:"Debut",badge:"🎤 Estreia oficial",isNew:false,
-   meta:"28 jun 2024 · 2,3M views em 3 dias"},
+  {ytId:"47Vns1d4tHA",title:"Hootie Frutti",badge:"🌶 EP WILD · Funk brasileiro",isNew:true,meta:"14 ago 2026 · Intro em português · Dir. Alfred Marroquin"},
+  {ytId:"bh6ySAGpYzw",title:"Animal",badge:"✍️ Ed Sheeran · #24 Hot 100",isNew:true,meta:"24 jul 2026 · EP WILD · Videoclipe com Demi Moore"},
+  {ytId:"7F1ET2XHQfk",title:"Pinky Up",badge:"⚡ Coachella 2026 · EP WILD",isNew:true,meta:"9 abr 2026 · Hyperpop / techno-pop"},
+  {ytId:"CjnB56tSCQI",title:"Gabriela",badge:"🏆 Grammy 2026 nominada",isNew:false,meta:"20 jun 2025 · EP Beautiful Chaos"},
+  {ytId:"R2-yomhYAj4",title:"Gnarly",badge:"📊 1º Hit no Billboard Hot 100",isNew:false,meta:"30 abr 2025 · EP Beautiful Chaos"},
+  {ytId:"l9CZykYZkOQ",title:"Touch",badge:"🔥 Viral no TikTok · Remix c/ TXT",isNew:false,meta:"26 jul 2024 · EP SIS"},
+  {ytId:"bYg6aMDQ_TA",title:"Debut",badge:"🎤 Estreia oficial",isNew:false,meta:"28 jun 2024 · 2,3M views em 3 dias"},
 ];
 
 const DISCO=[
-  {type:"EP",title:"WILD",date:"14 ago 2026",isNew:true,
-   tracks:["Pinky Up","Animal","Hootie Frutti","Bel Air","That Way"]},
-  {type:"Single",title:"Animal",date:"24 jul 2026",isNew:true,tracks:["Animal"]},
-  {type:"Single",title:"Pinky Up",date:"9 abr 2026",isNew:true,tracks:["Pinky Up"]},
-  {type:"Single",title:"Internet Girl",date:"2 jan 2026",isNew:false,tracks:["Internet Girl"]},
-  {type:"EP",title:"Beautiful Chaos",date:"27 jun 2025",isNew:false,
-   tracks:["Gnarly","Gabriela","Gameboy","Beautiful Chaos","Gabriela (Español)"]},
-  {type:"EP",title:"SIS (Soft Is Strong)",date:"16 ago 2024",isNew:false,
-   tracks:["SIS","Burn the House Down","Debut","Touch"]},
-  {type:"Single",title:"Touch",date:"26 jul 2024",isNew:false,tracks:["Touch","Touch (feat. Yeonjun of TXT)"]},
-  {type:"Single",title:"Debut",date:"28 jun 2024",isNew:false,tracks:["Debut"]},
+  {type:"EP",title:"WILD",date:"14 ago 2026",isnew:true,tracks:["Pinky Up","Animal","Hootie Frutti","Bel Air","That Way"]},
+  {type:"Single",title:"Animal",date:"24 jul 2026",isnew:true,tracks:["Animal"]},
+  {type:"Single",title:"Pinky Up",date:"9 abr 2026",isnew:true,tracks:["Pinky Up"]},
+  {type:"Single",title:"Internet Girl",date:"2 jan 2026",isnew:false,tracks:["Internet Girl"]},
+  {type:"EP",title:"Beautiful Chaos",date:"27 jun 2025",isnew:false,tracks:["Gnarly","Gabriela","Gameboy","Beautiful Chaos","Gabriela (Español)"]},
+  {type:"EP",title:"SIS (Soft Is Strong)",date:"16 ago 2024",isnew:false,tracks:["SIS","Burn the House Down","Debut","Touch"]},
+  {type:"Single",title:"Touch",date:"26 jul 2024",isnew:false,tracks:["Touch","Touch (feat. Yeonjun of TXT)"]},
+  {type:"Single",title:"Debut",date:"28 jun 2024",isnew:false,tracks:["Debut"]},
 ];
 
 const QUESTIONS=[
   {q:"Qual é o nome do tour mundial do KATSEYE em 2026?",opts:["Beautiful Chaos Tour","SIS World Tour","Wildworld Tour","Wild Hearts Tour"],ans:2},
   {q:"'Hootie Frutti' tem influência de qual estilo musical brasileiro?",opts:["Bossa nova","Funk brasileiro","Samba","Axé"],ans:1},
-  {q:"Qual artista internacional co-escreveu 'Animal'?",opts:["Taylor Swift","Ed Sheeran","Charli xcx","Billie Eilish"],ans:1},
+  {q:"Qual artista co-escreveu 'Animal' com o KATSEYE?",opts:["Taylor Swift","Ed Sheeran","Charli xcx","Billie Eilish"],ans:1},
   {q:"'Animal' estreou em qual posição no Billboard Hot 100?",opts:["#1","#10","#24","#50"],ans:2},
   {q:"Quem sugeriu trocar o 'C' para 'K' no nome KATSEYE?",opts:["Sophia","Manon","Lara","Daniela"],ans:2},
   {q:"Qual é o nome oficial do fandom?",opts:["KATSEYS","EYEKONS","EYECONS","KATFANS"],ans:1},
@@ -450,21 +485,23 @@ const QUESTIONS=[
   {q:"Qual membro é a maknae (caçula)?",opts:["Megan","Sophia","Daniela","Yoonchae"],ans:3},
   {q:"Quem dirigiu o documentário Wild Hearts?",opts:["Nadia Hallgren","Cody Critcheloe","Alfred Marroquin","Bardia Zeinali"],ans:0},
   {q:"Em qual festival o EP WILD foi revelado acidentalmente?",opts:["Lollapalooza","Glastonbury","Coachella","Rock in Rio"],ans:2},
-  {q:"Para qual Grammy 'Gabriela' foi indicada?",opts:["Melhor Álbum Pop","Melhor Performance Pop em Duo/Grupo","Melhor Clipe","Melhor Nova Artista"],ans:1},
-  {q:"Em que ano o KATSEYE foi formado?",opts:["2022","2023","2024","2025"],ans:1},
+  {q:"Qual membro é a primeira artista negra do HYBE?",opts:["Daniela","Lara","Manon","Megan"],ans:2},
+  {q:"Qual membro cresceu no Havaí tocando ukulele?",opts:["Sophia","Daniela","Lara","Megan"],ans:3},
 ];
 
-/* ──────────── BUILDERS ──────────── */
+/* ── MEMBERS ── */
 function buildMembers(){
   document.getElementById("member-grid").innerHTML=MEMBERS.map((m,i)=>`
-    <div class="member-card" onclick="showMember(${i})">
-      <img class="member-thumb" src="https://img.youtube.com/vi/${m.ytThumb}/mqdefault.jpg" alt="${m.name}"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="member-thumb-fb" style="background:${m.grad};color:${m.tc};display:none">${m.name.slice(0,2).toUpperCase()}</div>
-      <div class="member-badge-wrap"><span class="pos-badge">${m.pos.split('·')[0].trim()}</span></div>
-      <div class="member-footer">
-        <div class="mf-name">${m.name}</div>
-        <div class="mf-country">${m.country}</div>
+    <div class="mc" onclick="showMember(${i})">
+      <div class="mc-photo-wrap">
+        <img class="mc-photo" src="${m.photo}" alt="${m.name}"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="mc-fallback" style="background:${m.grad};color:${m.tc}">${m.name.slice(0,2).toUpperCase()}</div>
+        <span class="mc-pos">${m.pos.split('·')[0].trim()}</span>
+      </div>
+      <div class="mc-foot">
+        <div class="mc-name">${m.name}</div>
+        <div class="mc-ctry">${m.country}</div>
       </div>
     </div>`).join("");
 }
@@ -474,32 +511,29 @@ function showMember(i){
   document.getElementById("tab-members").classList.remove("active");
   const dv=document.getElementById("member-detail");dv.classList.add("active");
   document.getElementById("detail-content").innerHTML=`
-    <div class="detail-hero">
-      <img class="detail-img" src="https://img.youtube.com/vi/${m.ytThumb}/mqdefault.jpg" alt="${m.name}"
+    <div class="dh">
+      <img class="dh-img" src="${m.photo}" alt="${m.name}"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="detail-img-fb" style="background:${m.grad};color:${m.tc};display:none">${m.name.slice(0,2).toUpperCase()}</div>
-      <div class="detail-overlay"></div>
-      <button class="detail-back" onclick="backToMembers()"><i class="ti ti-arrow-left"></i></button>
-      <div class="detail-name-wrap">
-        <div class="d-full-name">${m.full}</div>
-        <div class="d-pos">${m.pos}</div>
+      <div class="dh-fallback" style="background:${m.grad};color:${m.tc}">${m.name.slice(0,2).toUpperCase()}</div>
+      <div class="dh-overlay"></div>
+      <button class="dh-back" onclick="backToMembers()"><i class="ti ti-arrow-left"></i></button>
+      <div class="dh-info">
+        <div class="dh-name">${m.full}</div>
+        <div class="dh-pos">${m.pos}</div>
       </div>
     </div>
-    <div class="detail-body">
-      <div class="stats-row">
-        <div class="stat-box"><div class="stat-val">${m.birth}</div><div class="stat-label">ANO</div></div>
-        <div class="stat-box"><div class="stat-val">${m.height.replace(' cm','')}</div><div class="stat-label">ALTURA</div></div>
-        <div class="stat-box"><div class="stat-val">${m.debut}</div><div class="stat-label">DREAM</div></div>
-        <div class="stat-box"><div class="stat-val">${m.mbti}</div><div class="stat-label">MBTI</div></div>
+    <div class="db">
+      <div class="stats">
+        <div class="stat"><div class="sv">${m.birth}</div><div class="sl">ANO</div></div>
+        <div class="stat"><div class="sv">${m.height}cm</div><div class="sl">ALTURA</div></div>
+        <div class="stat"><div class="sv">${m.dream}</div><div class="sl">DREAM</div></div>
+        <div class="stat"><div class="sv">${m.mbti}</div><div class="sl">MBTI</div></div>
       </div>
-      <div class="d-fact">
-        <div class="d-fact-label">🌍 PAÍS</div>
-        <div class="d-fact-text">${m.country}</div>
-      </div>
-      <div class="d-fact">
-        <div class="d-fact-label">💡 CURIOSIDADE</div>
-        <div class="d-fact-text">${m.fact}</div>
-      </div>
+      <div class="df"><div class="df-l">🌍 PAÍS / ORIGEM</div><div class="df-t">${m.country}</div></div>
+      <div class="df"><div class="df-l">💡 CURIOSIDADE</div><div class="df-t">${m.fact}</div></div>
+      <button style="width:100%;margin-top:10px;padding:11px;background:var(--gd3);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer" onclick="showGalleryMember('${m.name.toLowerCase()}')">
+        📸 Ver fotos de ${m.name}
+      </button>
     </div>`;
   window.scrollTo(0,0);
 }
@@ -509,20 +543,70 @@ function backToMembers(){
   document.getElementById("tab-members").classList.add("active");
 }
 
+/* ── GALLERY ── */
+let currentCat="all";
+function buildGallery(cat){
+  currentCat=cat;
+  const items=GALLERY.filter(g=>g.cat.includes(cat));
+  lbItems=items;
+  document.getElementById("gallery-grid").innerHTML=items.map((g,i)=>`
+    <div class="gi" onclick="openLB(${i})">
+      <img src="${g.src}" alt="${g.label}" loading="lazy"
+           onerror="this.parentElement.style.background='var(--surface-2)';this.style.display='none'"/>
+      <div class="gi-overlay"></div>
+      <div class="gi-label">${g.label}</div>
+      <div class="gi-play"><div class="gi-play-btn"><i class="ti ti-zoom-in" style="font-size:18px;color:#fff"></i></div></div>
+    </div>`).join("");
+}
+
+function showGallery(cat,btn){
+  document.querySelectorAll(".gtab").forEach(b=>b.classList.remove("active"));
+  if(btn)btn.classList.add("active");
+  buildGallery(cat);
+}
+
+function showGalleryMember(name){
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById("member-detail").classList.remove("active");
+  document.getElementById("tab-gallery").classList.add("active");
+  document.querySelectorAll(".nav-btn")[2].classList.add("active");
+  const btn=Array.from(document.querySelectorAll(".gtab")).find(b=>b.textContent.trim().toLowerCase()===name);
+  showGallery(name,btn);
+  window.scrollTo(0,0);
+}
+
+function openLB(i){
+  lbIdx=i;
+  const g=lbItems[i];
+  document.getElementById("lb-img").src=g.src;
+  document.getElementById("lb-title").textContent=g.label;
+  document.getElementById("lb").classList.add("open");
+}
+function closeLB(e){
+  if(!e||e.target===document.getElementById("lb"))
+    document.getElementById("lb").classList.remove("open");
+}
+function lbNav(d){
+  lbIdx=(lbIdx+d+lbItems.length)%lbItems.length;
+  openLB(lbIdx);
+}
+
+/* ── MUSIC ── */
 function buildMusic(){
   document.getElementById("music-list").innerHTML=VIDEOS.map(v=>`
     <div class="mv-card">
       <div class="mv-thumb" onclick="openYT('${v.ytId}')">
         <img src="https://img.youtube.com/vi/${v.ytId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/>
-        <div class="mv-gradient"></div>
-        <div class="mv-overlay"><div class="play-btn"><i class="ti ti-player-play" style="font-size:24px;color:#fff;margin-left:3px"></i></div></div>
-        ${v.isNew?'<span class="new-ribbon">✨ NOVO</span>':''}
+        <div class="mv-grad"></div>
+        <div class="mv-ov"><div class="mv-play"><i class="ti ti-player-play" style="font-size:24px;color:#fff;margin-left:3px"></i></div></div>
+        ${v.isNew?'<span class="mv-new">✨ NOVO</span>':''}
       </div>
       <div class="mv-body">
-        <span class="mv-ep-tag">${v.badge}</span>
+        <span class="mv-ep">${v.badge}</span>
         <div class="mv-title">${v.title}</div>
         <div class="mv-meta">${v.meta}</div>
-        <button class="mv-yt-btn" onclick="openYT('${v.ytId}')">
+        <button class="mv-btn" onclick="openYT('${v.ytId}')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="#E24B4A"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14C4.46 20.5 12 20.5 12 20.5s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.81zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
           Assistir no YouTube
         </button>
@@ -530,47 +614,48 @@ function buildMusic(){
     </div>`).join("");
 }
 
+/* ── DISCO ── */
 function buildDisco(){
   document.getElementById("disco-list").innerHTML=DISCO.map(d=>`
-    <div class="disc-card${d.isNew?' is-new':''}">
-      <div class="disc-header">
-        <span class="disc-type-badge">${d.type.toUpperCase()}${d.isNew?' · ✨ NOVO':''}</span>
-        <div class="disc-h-title">${d.title}</div>
-        <div class="disc-h-date">📅 ${d.date}</div>
+    <div class="disc-card${d.isnew?' isnew':''}">
+      <div class="dh2">
+        <span class="dt">${d.type.toUpperCase()}${d.isnew?' · ✨ NOVO':''}</span>
+        <div class="dtitle">${d.title}</div>
+        <div class="ddate">📅 ${d.date}</div>
       </div>
-      <div class="disc-tracks">
-        ${d.tracks.map((t,i)=>`<div class="track-row"><span class="track-num">${i+1}</span><span class="${d.isNew?'track-new':''}">${t}</span></div>`).join("")}
+      <div class="dtracks">
+        ${d.tracks.map((t,i)=>`<div class="tr"><span class="tn">${i+1}</span><span class="${d.isnew?'tnew':''}">${t}</span></div>`).join("")}
       </div>
     </div>`).join("");
 }
 
-/* ──────────── QUIZ ──────────── */
-let quizIdx=0,score=0,answered=false,shuffled=[];
-function startQuiz(){shuffled=[...QUESTIONS].sort(()=>Math.random()-.5);quizIdx=0;score=0;renderQ();}
+/* ── QUIZ ── */
+let qi=0,sc=0,answered=false,sq=[];
+function startQuiz(){sq=[...QUESTIONS].sort(()=>Math.random()-.5);qi=0;sc=0;renderQ();}
 function renderQ(){
-  if(quizIdx>=shuffled.length){showResult();return;}
-  const q=shuffled[quizIdx];answered=false;
-  const pct=Math.round(quizIdx/shuffled.length*100);
+  if(qi>=sq.length){showRes();return;}
+  const q=sq[qi];answered=false;
+  const p=Math.round(qi/sq.length*100);
   document.getElementById("quiz-content").innerHTML=`
-    <div class="quiz-prog-txt">PERGUNTA ${quizIdx+1} DE ${shuffled.length}</div>
-    <div class="quiz-bar"><div class="quiz-fill" style="width:${pct}%"></div></div>
-    <div class="quiz-q">${q.q}</div>
-    <div class="quiz-opts">${q.opts.map((o,i)=>`<button class="q-opt" id="opt${i}" onclick="pick(${i})">${o}</button>`).join("")}</div>`;
+    <div class="qpt">PERGUNTA ${qi+1} DE ${sq.length}</div>
+    <div class="qbar"><div class="qfill" style="width:${p}%"></div></div>
+    <div class="qq">${q.q}</div>
+    <div class="qopts">${q.opts.map((o,i)=>`<button class="qo" id="qo${i}" onclick="pick(${i})">${o}</button>`).join("")}</div>`;
 }
 function pick(i){
   if(answered)return;answered=true;
-  const q=shuffled[quizIdx];
-  q.opts.forEach((_,j)=>{const b=document.getElementById("opt"+j);if(j===q.ans)b.classList.add("correct");else if(j===i&&i!==q.ans)b.classList.add("wrong");b.disabled=true;});
-  if(i===q.ans)score++;
-  setTimeout(()=>{quizIdx++;renderQ();},1200);
+  const q=sq[qi];
+  q.opts.forEach((_,j)=>{const b=document.getElementById("qo"+j);if(j===q.ans)b.classList.add("correct");else if(j===i&&i!==q.ans)b.classList.add("wrong");b.disabled=true;});
+  if(i===q.ans)sc++;
+  setTimeout(()=>{qi++;renderQ();},1200);
 }
-function showResult(){
-  const pct=Math.round(score/shuffled.length*100);
-  const msg=pct===100?"EYEKON RAINHA! PERFEITO! 👑💜":pct>=80?"Você sabe muito sobre elas! 💜":pct>=60?"Bom resultado! Continue explorando! 🙂":"Hora de estudar mais! Explore o app! 📚";
-  document.getElementById("quiz-content").innerHTML=`<div class="quiz-result"><div class="quiz-big">${score}/${shuffled.length}</div><div class="quiz-of">${pct}% DE ACERTO</div><div class="quiz-msg">${msg}</div><button class="quiz-replay" onclick="startQuiz()">JOGAR NOVAMENTE 💜</button></div>`;
+function showRes(){
+  const p=Math.round(sc/sq.length*100);
+  const m=p===100?"EYEKON RAINHA! PERFEITO! 👑💜":p>=80?"Você é uma EYEKON dedicada! 💜":p>=60?"Bom resultado! Continue explorando! 🙂":"Hora de estudar mais! Explore o app! 📚";
+  document.getElementById("quiz-content").innerHTML=`<div class="qres"><div class="qbig">${sc}/${sq.length}</div><div class="qof">${p}% DE ACERTO</div><div class="qmsg">${m}</div><button class="qreplay" onclick="startQuiz()">JOGAR NOVAMENTE 💜</button></div>`;
 }
 
-/* ──────────── NAV ──────────── */
+/* ── NAV ── */
 function showTab(tab,btn){
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
@@ -579,8 +664,9 @@ function showTab(tab,btn){
   btn.classList.add("active");window.scrollTo(0,0);
   if(tab==="music"&&!document.querySelector(".mv-card"))buildMusic();
   if(tab==="disco"&&!document.querySelector(".disc-card"))buildDisco();
-  if(tab==="members"&&!document.querySelector(".member-card"))buildMembers();
-  if(tab==="quiz"&&quizIdx===0&&!answered)startQuiz();
+  if(tab==="members"&&!document.querySelector(".mc"))buildMembers();
+  if(tab==="gallery"&&!document.getElementById("gallery-grid").children.length)buildGallery("all");
+  if(tab==="quiz"&&qi===0&&!answered)startQuiz();
 }
 function openYT(id){window.open("https://www.youtube.com/watch?v="+id,"_blank","noopener");}
 
