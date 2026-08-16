@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#7F77DD" />
+  <meta name="description" content="KATSEYE Fan App — EYEKONS Brasil" />
+  <title>KATSEYE Fan App</title>
+
+  <!-- PWA manifest inline -->
+  <link rel="manifest" href="data:application/json,%7B%22name%22%3A%22KATSEYE%20Fan%20App%22%2C%22short_name%22%3A%22KATSEYE%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%237F77DD%22%7D" />
+
+  <!-- Tabler icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple:    #7F77DD;
+      --purple-lt: #EEEDFE;
+      --purple-dk: #534AB7;
+      --purple-xd: #3C3489;
+      --surface:   #ffffff;
+      --surface-1: #f5f5f3;
+      --border:    rgba(0,0,0,0.08);
+      --border-s:  rgba(0,0,0,0.15);
+      --text:      #1a1a18;
+      --text-2:    #5f5e5a;
+      --text-3:    #888780;
+      --radius:    8px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --surface:   #1e1e1c;
+        --surface-1: #2a2a28;
+        --border:    rgba(255,255,255,0.08);
+        --border-s:  rgba(255,255,255,0.15);
+        --text:      #f0efe8;
+        --text-2:    #b4b2a9;
+        --text-3:    #888780;
+        --purple-lt: #26215C;
+      }
+    }
+
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--surface-1);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── LAYOUT ── */
+    .app-shell {
+      max-width: 430px;
+      margin: 0 auto;
+      background: var(--surface);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 40px rgba(0,0,0,0.08);
+    }
+
+    /* ── HEADER ── */
+    .app-header {
+      text-align: center;
+      padding: 1.4rem 1rem 1rem;
+      border-bottom: 0.5px solid var(--border);
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .app-logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 5px;
+      color: var(--purple);
+    }
+    .app-tagline {
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 2.5px;
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── NAV ── */
+    .app-nav {
+      display: flex;
+      border-bottom: 0.5px solid var(--border);
+      background: var(--surface);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .app-nav::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      flex: 1;
+      min-width: 64px;
+      padding: 9px 6px 7px;
+      background: none;
+      border: none;
+      border-bottom: 2.5px solid transparent;
+      color: var(--text-3);
+      font-size: 10px;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      line-height: 1.4;
+      transition: color .2s, border-color .2s;
+    }
+    .nav-btn i { font-size: 18px; display: block; }
+    .nav-btn.active {
+      color: var(--purple);
+      border-bottom-color: var(--purple);
+      font-weight: 600;
+    }
+
+    /* ── SECTIONS ── */
+    .section { display: none; padding: 1rem; flex: 1; }
+    .section.active { display: block; }
+
+    /* ── MEMBER GRID ── */
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .member-card {
+      background: var(--surface-1);
+      border: 0.5px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 12px;
+      cursor: pointer;
+      transition: border-color .2s, transform .15s;
+    }
+    .member-card:active { transform: scale(0.97); }
+    .avatar {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .m-name { font-size: 15px; font-weight: 600; color: var(--text); }
+    .m-role { font-size: 11px; color: var(--text-2); margin-top: 2px; }
+    .m-ctry { font-size: 11px; color: var(--purple); margin-top: 5px; font-weight: 500; }
+
+    /* ── MEMBER DETAIL ── */
+    .detail-view { display: none; padding: 1rem; }
+    .detail-view.active { display: block; }
+    .back-btn {
+      background: none; border: none;
+      color: var(--purple); font-size: 13px; font-family: inherit;
+      cursor: pointer; display: flex; align-items: center; gap: 4px;
+      margin-bottom: 14px; padding: 0;
+    }
+    .detail-avatar {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 700;
+      margin: 0 auto 12px;
+    }
+    .d-name { text-align: center; font-size: 21px; font-weight: 700; }
+    .d-role { text-align: center; font-size: 13px; color: var(--text-2); margin-top: 3px; }
+    .d-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-top: 16px;
+    }
+    .d-item {
+      background: var(--surface-1); border-radius: var(--radius); padding: 10px 12px;
+    }
+    .d-label { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.5px; }
+    .d-val { font-size: 14px; font-weight: 600; color: var(--text); margin-top: 3px; }
+    .fact-box {
+      background: var(--surface-1); border-radius: var(--radius); padding: 12px 14px;
+      margin-top: 12px; border-left: 3px solid var(--purple);
+    }
+    .fact-label { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .fact-text { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+    /* ── MUSIC / VÍDEOS ── */
+    .music-note {
+      font-size: 12px; color: var(--text-3);
+      background: var(--surface-1); border-radius: var(--radius);
+      padding: 8px 12px; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .mv-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .mv-thumb {
+      position: relative; cursor: pointer;
+      background: #1a1a1a;
+    }
+    .mv-thumb img {
+      width: 100%; height: 190px;
+      object-fit: cover; display: block;
+      transition: opacity .2s;
+    }
+    .mv-thumb:hover img { opacity: 0.85; }
+    .mv-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .play-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(127,119,221,0.88);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(127,119,221,0.45);
+    }
+    .mv-body { padding: 12px 14px 14px; }
+    .mv-badge {
+      font-size: 10px; font-weight: 600;
+      background: var(--purple-lt); color: var(--purple-dk);
+      padding: 3px 9px; border-radius: 20px;
+      display: inline-block; margin-bottom: 6px;
+    }
+    .mv-title { font-size: 16px; font-weight: 700; }
+    .mv-meta { font-size: 12px; color: var(--text-2); margin-top: 4px; line-height: 1.5; }
+    .yt-btn {
+      margin-top: 10px; width: 100%;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 9px 12px;
+      background: none; border: 0.5px solid var(--border-s);
+      border-radius: var(--radius); font-size: 13px; font-weight: 500;
+      font-family: inherit; color: var(--text); cursor: pointer;
+      transition: background .15s;
+    }
+    .yt-btn:hover { background: var(--surface-1); }
+
+    /* ── DISCOGRAPHY ── */
+    .disc-card {
+      background: var(--surface-1); border: 0.5px solid var(--border);
+      border-radius: 14px; padding: 13px 15px; margin-bottom: 11px;
+    }
+    .disc-type {
+      font-size: 10px; font-weight: 600;
+      background: var(--purple-lt); color: var(--purple-dk);
+      padding: 3px 9px; border-radius: 20px;
+      display: inline-block; margin-bottom: 7px;
+    }
+    .disc-title { font-size: 16px; font-weight: 700; }
+    .disc-date { font-size: 12px; color: var(--text-2); margin-top: 3px; }
+    .disc-divider { border: none; border-top: 0.5px solid var(--border); margin: 10px 0 8px; }
+    .track-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 4px 0; font-size: 13px;
+    }
+    .track-num { font-size: 11px; color: var(--text-3); min-width: 16px; }
+
+    /* ── QUIZ ── */
+    .quiz-prog-txt { font-size: 11px; color: var(--text-3); margin-bottom: 8px; }
+    .quiz-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 16px; overflow: hidden; }
+    .quiz-fill { height: 100%; background: var(--purple); border-radius: 2px; transition: width .4s; }
+    .quiz-q { font-size: 15px; font-weight: 600; line-height: 1.5; margin-bottom: 16px; }
+    .quiz-opts { display: flex; flex-direction: column; gap: 9px; }
+    .q-opt {
+      background: var(--surface-1); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 11px 15px;
+      text-align: left; cursor: pointer; font-size: 14px;
+      font-family: inherit; color: var(--text);
+      transition: border-color .15s, background .15s;
+    }
+    .q-opt:hover { border-color: var(--purple); }
+    .q-opt.correct { background: #EAF3DE; border-color: #639922; color: #3B6D11; }
+    .q-opt.wrong   { background: #FCEBEB; border-color: #A32D2D; color: #A32D2D; }
+    .q-opt:disabled { cursor: default; }
+    .quiz-result { text-align: center; padding: 30px 20px; }
+    .quiz-big { font-size: 52px; font-weight: 800; color: var(--purple); }
+    .quiz-of { font-size: 14px; color: var(--text-3); margin-top: 2px; }
+    .quiz-msg { font-size: 15px; color: var(--text-2); margin-top: 12px; line-height: 1.5; }
+    .quiz-replay {
+      margin-top: 20px; padding: 11px 28px;
+      background: var(--purple); color: #fff; border: none; border-radius: var(--radius);
+      font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;
+    }
+
+    /* ── ABOUT ── */
+    .about-hero {
+      background: var(--purple-lt); border-radius: 16px;
+      padding: 20px 16px; margin-bottom: 14px; text-align: center;
+    }
+    .about-hero-title { font-size: 20px; font-weight: 800; color: var(--purple-xd); }
+    .about-hero-sub { font-size: 12px; color: var(--purple-dk); margin-top: 4px; }
+    .about-card {
+      background: var(--surface-1); border: 0.5px solid var(--border);
+      border-radius: 14px; padding: 13px 15px; margin-bottom: 11px;
+    }
+    .about-card-title {
+      font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .about-card-title i { color: var(--purple); font-size: 15px; }
+    .about-card p { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+    .tag {
+      font-size: 12px; background: var(--surface);
+      border: 0.5px solid var(--border-s); border-radius: 20px;
+      padding: 4px 11px; color: var(--text-2);
+    }
+    .milestone-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0; border-bottom: 0.5px solid var(--border);
+    }
+    .milestone-row:last-child { border-bottom: none; }
+    .ms-year { font-size: 11px; font-weight: 700; color: var(--purple); min-width: 36px; }
+    .ms-text { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .app-footer {
+      text-align: center; padding: 14px;
+      font-size: 11px; color: var(--text-3);
+      border-top: 0.5px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="app-logo">KATSEYE</div>
+    <div class="app-tagline">EYEKONS Fan App · Brasil</div>
+  </header>
+
+  <!-- NAV -->
+  <nav class="app-nav" role="navigation" aria-label="Seções do app">
+    <button class="nav-btn active" onclick="showTab('members',this)" aria-label="Membros">
+      <i class="ti ti-users" aria-hidden="true"></i>Membros
+    </button>
+    <button class="nav-btn" onclick="showTab('music',this)" aria-label="Músicas">
+      <i class="ti ti-player-play" aria-hidden="true"></i>Músicas
+    </button>
+    <button class="nav-btn" onclick="showTab('disco',this)" aria-label="Discografia">
+      <i class="ti ti-vinyl" aria-hidden="true"></i>Disco.
+    </button>
+    <button class="nav-btn" onclick="showTab('quiz',this)" aria-label="Quiz">
+      <i class="ti ti-bulb" aria-hidden="true"></i>Quiz
+    </button>
+    <button class="nav-btn" onclick="showTab('about',this)" aria-label="Sobre">
+      <i class="ti ti-info-circle" aria-hidden="true"></i>Sobre
+    </button>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       MEMBROS
+  ══════════════════════════════════════ -->
+  <main>
+    <section id="tab-members" class="section active" aria-label="Membros">
+      <div class="member-grid" id="member-grid"></div>
+    </section>
+
+    <!-- Detail view (fora das sections normais) -->
+    <div id="member-detail" class="detail-view" aria-label="Perfil da membro">
+      <button class="back-btn" onclick="backToMembers()">
+        <i class="ti ti-chevron-left" aria-hidden="true"></i> Membros
+      </button>
+      <div id="detail-content"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         MÚSICAS
+    ══════════════════════════════════════ -->
+    <section id="tab-music" class="section" aria-label="Músicas e vídeos">
+      <div class="music-note">
+        <i class="ti ti-brand-youtube" aria-hidden="true" style="color:#E24B4A"></i>
+        Clique para assistir o clipe oficial no YouTube
+      </div>
+      <div id="music-list"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         DISCOGRAFIA
+    ══════════════════════════════════════ -->
+    <section id="tab-disco" class="section" aria-label="Discografia">
+      <div id="disco-list"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         QUIZ
+    ══════════════════════════════════════ -->
+    <section id="tab-quiz" class="section" aria-label="Quiz KATSEYE">
+      <div id="quiz-content"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SOBRE
+    ══════════════════════════════════════ -->
+    <section id="tab-about" class="section" aria-label="Sobre o KATSEYE">
+      <div class="about-hero">
+        <div class="about-hero-title">KATSEYE (캣츠아이)</div>
+        <div class="about-hero-sub">Global Girl Group · HYBE × Geffen Records</div>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-title"><i class="ti ti-sparkles" aria-hidden="true"></i>Origem do nome</div>
+        <p>Inspirado na pedra preciosa "olho de gato" (chrysoberyl), que é iridescente e muda de cor. As diferentes tonalidades representam a unicidade de cada membro. A mudança do "C" para "K" foi ideia da Lara para o nome ficar mais cool.</p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-title"><i class="ti ti-tv" aria-hidden="true"></i>Como surgiu o grupo</div>
+        <p>Formado pelo reality show <strong>The Debut: Dream Academy</strong> — uma colaboração entre HYBE e Geffen Records (Universal). O processo foi documentado na série <strong>Pop Star Academy: KATSEYE</strong>, disponível na Netflix.</p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-title"><i class="ti ti-heart" aria-hidden="true"></i>Fandom</div>
+        <p>O nome oficial do fandom é <strong>EYEKONS</strong> — combinação de "eye" (de KATSEYE) e "icon". Os fãs brasileiros são uma parte ativa e crescente da comunidade global.</p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-title"><i class="ti ti-flag" aria-hidden="true"></i>Países representados</div>
+        <div class="tag-row">
+          <span class="tag">🇺🇸 EUA</span>
+          <span class="tag">🇰🇷 Coreia do Sul</span>
+          <span class="tag">🇵🇭 Filipinas</span>
+          <span class="tag">🇨🇭 Suíça</span>
+          <span class="tag">🇩🇪 Alemanha</span>
+        </div>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-title"><i class="ti ti-trophy" aria-hidden="true"></i>Linha do tempo</div>
+        <div class="milestone-row"><span class="ms-year">2023</span><span class="ms-text">Formadas pelo The Debut: Dream Academy (final em novembro)</span></div>
+        <div class="milestone-row"><span class="ms-year">2024</span><span class="ms-text">Estreia oficial (junho) · EP SIS (agosto) · Touch viraliza no TikTok · Gap ad com 400M+ views</span></div>
+        <div class="milestone-row"><span class="ms-year">2025</span><span class="ms-text">Gnarly entra no Billboard Hot 100 · EP Beautiful Chaos · MTV VMAs · Lollapalooza</span></div>
+        <div class="milestone-row"><span class="ms-year">2026</span><span class="ms-text">Grammy Awards · Coachella · Pinky Up · Animal — 1º top 10 no Billboard Global 200 · EP Wild</span></div>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-title"><i class="ti ti-world" aria-hidden="true"></i>Links oficiais</div>
+        <div class="tag-row">
+          <a class="tag" href="https://www.youtube.com/@katseyeworld" target="_blank" rel="noopener">▶ YouTube</a>
+          <a class="tag" href="https://www.instagram.com/katseyeworld" target="_blank" rel="noopener">📸 Instagram</a>
+          <a class="tag" href="https://www.katseye.world" target="_blank" rel="noopener">🌐 Site oficial</a>
+          <a class="tag" href="https://open.spotify.com/artist/3WQnU4gCUDZjBrqYKUHhK5" target="_blank" rel="noopener">🎵 Spotify</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    Fan-made app · EYEKONS Brasil · 2026 &nbsp;💜
+  </footer>
+
+</div><!-- /app-shell -->
+
+<script>
+/* ═══════════════════════════ DATA ═══════════════════════════ */
+
+const MEMBERS = [
+  {
+    name: "Sophia", full: "Sophia Laforteza",
+    country: "🇵🇭 Filipinas", pos: "Líder · Vocal",
+    color: "#EEEDFE", tc: "#534AB7",
+    birth: "2005", height: "167 cm", debut: "#1 no Dream Academy", mbti: "ENFJ",
+    fact: "É a chef de cozinha do grupo e apareceu no Family Feud Philippines (2022). Foi a mais votada pelos fãs durante o Dream Academy."
+  },
+  {
+    name: "Manon", full: "Manon Bannerman",
+    country: "🇨🇭 Suíça / 🇩🇪 Alemanha", pos: "Vocal · Performance",
+    color: "#FBEAF0", tc: "#993556",
+    birth: "2005", height: "168 cm", debut: "#6 no Dream Academy", mbti: "ISFP",
+    fact: "Fala inglês, francês e alemão. Em hiato temporário desde fevereiro de 2026 para cuidar da saúde e bem-estar."
+  },
+  {
+    name: "Daniela", full: "Daniela Avanzini",
+    country: "🇺🇸 EUA", pos: "Rap · Performance",
+    color: "#E1F5EE", tc: "#0F6E56",
+    birth: "2005", height: "163 cm", debut: "#3 no Dream Academy", mbti: "ENFP",
+    fact: "De ascendência italiana e mexicana. Conhecida pela energia explosiva no palco e por ser a mais extrovertida do grupo."
+  },
+  {
+    name: "Lara", full: "Lara Rajagopalan",
+    country: "🇺🇸 EUA", pos: "Rap · Vocal",
+    color: "#FAECE7", tc: "#993C1D",
+    birth: "2005", height: "165 cm", debut: "#2 no Dream Academy", mbti: "ESTP",
+    fact: "Foi ela quem sugeriu trocar o 'C' para 'K' no nome KATSEYE. De ascendência indiana, é uma das rappers do grupo."
+  },
+  {
+    name: "Megan", full: "Megan Skiendiel",
+    country: "🇺🇸 EUA", pos: "Dance · Vocal",
+    color: "#E6F1FB", tc: "#185FA5",
+    birth: "2006", height: "167 cm", debut: "#5 no Dream Academy", mbti: "INFP",
+    fact: "Principal dançarina do grupo. Treinou dança de forma profissional desde criança nos Estados Unidos."
+  },
+  {
+    name: "Yoonchae", full: "Jeong Yoonchae",
+    country: "🇰🇷 Coreia do Sul", pos: "Vocal · Maknae",
+    color: "#FAEEDA", tc: "#854F0B",
+    birth: "2007", height: "160 cm", debut: "#4 no Dream Academy", mbti: "INFJ",
+    fact: "A caçula (maknae) do grupo. Junto com a Sophia, é das favoritas dos fãs coreanos. Única membro nascida em 2007."
+  },
+];
+
+const VIDEOS = [
+  {
+    ytId: "bYg6aMDQ_TA",
+    title: "Debut",
+    badge: "🎤 Estreia Oficial",
+    meta: "28 jun 2024 · Primeiro single oficial · 2,3M views em 3 dias"
+  },
+  {
+    ytId: "l9CZykYZkOQ",
+    title: "Touch",
+    badge: "🔥 Viral no TikTok",
+    meta: "26 jul 2024 · Hit que explodiu nas redes sociais · Remix com Yeonjun (TXT)"
+  },
+  {
+    ytId: "R2-yomhYAj4",
+    title: "Gnarly",
+    badge: "📊 Billboard Hot 100",
+    meta: "30 abr 2025 · Primeiro single do EP Beautiful Chaos · Nomeado ao iHeartRadio 2026"
+  },
+  {
+    ytId: "CjnB56tSCQI",
+    title: "Gabriela",
+    badge: "💜 Beautiful Chaos",
+    meta: "20 jun 2025 · Segundo single do EP Beautiful Chaos · Recebida com muito amor pelos fãs"
+  },
+  {
+    ytId: "7F1ET2XHQfk",
+    title: "Pinky Up",
+    badge: "⚡ Coachella 2026",
+    meta: "9 abr 2026 · Lead single do EP Wild · Primeiro sem Manon · Amostra de 'Meet Her at the Love Parade'"
+  },
+  {
+    ytId: "PkMKJEkE8Mo",
+    title: "Gnarly (Choreography Ver.)",
+    badge: "🕺 Performance",
+    meta: "Maio 2025 · Versão coreografia oficial · Destaque no M Countdown e Music Bank"
+  },
+];
+
+const DISCO = [
+  {
+    type: "Single", title: "Debut", date: "28 jun 2024",
+    tracks: ["Debut"]
+  },
+  {
+    type: "Single", title: "Touch", date: "26 jul 2024",
+    tracks: ["Touch", "Touch (feat. Yeonjun of TXT) — Remix"]
+  },
+  {
+    type: "EP", title: "SIS (Soft Is Strong)", date: "16 ago 2024",
+    tracks: ["SIS", "Burn the House Down", "Debut", "Touch", "Debut (Instrumental)"]
+  },
+  {
+    type: "Single", title: "Internet Girl", date: "2 jan 2026",
+    tracks: ["Internet Girl"]
+  },
+  {
+    type: "Single", title: "Gnarly", date: "30 abr 2025",
+    tracks: ["Gnarly"]
+  },
+  {
+    type: "EP", title: "Beautiful Chaos", date: "27 jun 2025",
+    tracks: ["Gnarly", "Gabriela", "Gameboy", "Beautiful Chaos", "Gabriela (Español)"]
+  },
+  {
+    type: "Single", title: "Pinky Up", date: "9 abr 2026",
+    tracks: ["Pinky Up"]
+  },
+  {
+    type: "Single", title: "Animal", date: "24 jul 2026",
+    tracks: ["Animal", "Pinky Up"]
+  },
+  {
+    type: "EP", title: "Wild", date: "14 ago 2026",
+    tracks: ["Pinky Up", "Animal", "+ faixas do EP"]
+  },
+];
+
+const QUESTIONS = [
+  { q: "Qual membro sugeriu trocar o 'C' para 'K' no nome KATSEYE?", opts: ["Sophia","Manon","Lara","Daniela"], ans: 2 },
+  { q: "KATSEYE foi formado por qual reality show?", opts: ["Dream Academy","Produce 101","NiziU Project","The Debut Show"], ans: 0 },
+  { q: "Qual plataforma exibiu o documentário Pop Star Academy: KATSEYE?", opts: ["Disney+","Prime Video","Netflix","Apple TV+"], ans: 2 },
+  { q: "Qual é o nome oficial do fandom da KATSEYE?", opts: ["KATSEYS","EYEKONS","EYECONS","KATFANS"], ans: 1 },
+  { q: "Em que data a KATSEYE fez sua estreia oficial?", opts: ["28 jun 2024","16 ago 2024","17 nov 2023","26 jul 2024"], ans: 0 },
+  { q: "Qual membro é a maknae (caçula) do grupo?", opts: ["Megan","Sophia","Daniela","Yoonchae"], ans: 3 },
+  { q: "Qual campanha publicitária viral atingiu 400M+ de visualizações?", opts: ["Nike","Adidas","Gap","H&M"], ans: 2 },
+  { q: "Qual single entrou pela 1ª vez no Billboard Hot 100?", opts: ["Touch","Debut","Gnarly","Animal"], ans: 2 },
+  { q: "Em qual festival de música as KATSEYE se apresentaram em 2026?", opts: ["Glastonbury","Coachella","Rock in Rio","Lollapalooza Brasil"], ans: 1 },
+  { q: "Qual EP contém as músicas Gnarly e Gabriela?", opts: ["SIS","Wild","Beautiful Chaos","Touch EP"], ans: 2 },
+  { q: "De qual país é a membro Sophia Laforteza?", opts: ["Coreia do Sul","EUA","Filipinas","Suíça"], ans: 2 },
+  { q: "Qual gênero predomina em Pinky Up (2026)?", opts: ["Balada","Hyperpop / EDM","R&B","Trap"], ans: 1 },
+];
+
+/* ═══════════════════════════ RENDER ═══════════════════════════ */
+
+function buildMembers() {
+  document.getElementById("member-grid").innerHTML = MEMBERS.map((m, i) => `
+    <div class="member-card" onclick="showMember(${i})" role="button" tabindex="0" aria-label="Ver perfil de ${m.name}">
+      <div class="avatar" style="background:${m.color};color:${m.tc}">${m.name.slice(0,2).toUpperCase()}</div>
+      <div class="m-name">${m.name}</div>
+      <div class="m-role">${m.pos}</div>
+      <div class="m-ctry">${m.country}</div>
+    </div>
+  `).join("");
+}
+
+function showMember(i) {
+  const m = MEMBERS[i];
+  document.getElementById("tab-members").classList.remove("active");
+  const dv = document.getElementById("member-detail");
+  dv.classList.add("active");
+  document.getElementById("detail-content").innerHTML = `
+    <div class="detail-avatar" style="background:${m.color};color:${m.tc}">${m.name.slice(0,2).toUpperCase()}</div>
+    <div class="d-name">${m.full}</div>
+    <div class="d-role">${m.pos}</div>
+    <div class="d-grid">
+      <div class="d-item"><div class="d-label">País</div><div class="d-val">${m.country}</div></div>
+      <div class="d-item"><div class="d-label">Ano nasc.</div><div class="d-val">${m.birth}</div></div>
+      <div class="d-item"><div class="d-label">Altura</div><div class="d-val">${m.height}</div></div>
+      <div class="d-item"><div class="d-label">MBTI</div><div class="d-val">${m.mbti}</div></div>
+    </div>
+    <div class="fact-box">
+      <div class="fact-label">Classificação — Dream Academy</div>
+      <div class="fact-text">${m.debut}</div>
+    </div>
+    <div class="fact-box" style="border-color:#AFA9EC">
+      <div class="fact-label">Curiosidade</div>
+      <div class="fact-text">${m.fact}</div>
+    </div>
+  `;
+  window.scrollTo(0, 0);
+}
+
+function backToMembers() {
+  document.getElementById("member-detail").classList.remove("active");
+  document.getElementById("tab-members").classList.add("active");
+}
+
+function buildMusic() {
+  document.getElementById("music-list").innerHTML = VIDEOS.map(v => `
+    <div class="mv-card">
+      <div class="mv-thumb" onclick="openYT('${v.ytId}')" role="button" tabindex="0" aria-label="Assistir ${v.title} no YouTube">
+        <img src="https://img.youtube.com/vi/${v.ytId}/mqdefault.jpg"
+             alt="Thumbnail do MV ${v.title}"
+             loading="lazy"
+             onerror="this.style.background='#1a1a1a';this.style.height='190px'" />
+        <div class="mv-overlay">
+          <div class="play-circle">
+            <i class="ti ti-player-play" style="font-size:24px;color:#fff;margin-left:3px" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="mv-body">
+        <span class="mv-badge">${v.badge}</span>
+        <div class="mv-title">${v.title}</div>
+        <div class="mv-meta">${v.meta}</div>
+        <button class="yt-btn" onclick="openYT('${v.ytId}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#E24B4A" aria-hidden="true">
+            <path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.81 3.02 3.02 0 0 0 2.12 2.14C4.46 20.5 12 20.5 12 20.5s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.81zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/>
+          </svg>
+          Assistir no YouTube
+        </button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function buildDisco() {
+  document.getElementById("disco-list").innerHTML = DISCO.map(d => `
+    <div class="disc-card">
+      <span class="disc-type">${d.type}</span>
+      <div class="disc-title">${d.title}</div>
+      <div class="disc-date">
+        <i class="ti ti-calendar" aria-hidden="true" style="font-size:11px;vertical-align:-1px;margin-right:3px"></i>${d.date}
+      </div>
+      <hr class="disc-divider" />
+      ${d.tracks.map((t, i) => `
+        <div class="track-row">
+          <span class="track-num">${i + 1}</span>
+          <span>${t}</span>
+        </div>
+      `).join("")}
+    </div>
+  `).join("");
+}
+
+/* ═══════════════════════════ QUIZ ═══════════════════════════ */
+let quizIdx = 0, score = 0, answered = false, shuffled = [];
+
+function startQuiz() {
+  shuffled = [...QUESTIONS].sort(() => Math.random() - 0.5);
+  quizIdx = 0; score = 0;
+  renderQ();
+}
+
+function renderQ() {
+  if (quizIdx >= shuffled.length) { showResult(); return; }
+  const q = shuffled[quizIdx];
+  answered = false;
+  const pct = Math.round(quizIdx / shuffled.length * 100);
+  document.getElementById("quiz-content").innerHTML = `
+    <div class="quiz-prog-txt">Pergunta ${quizIdx + 1} de ${shuffled.length}</div>
+    <div class="quiz-bar"><div class="quiz-fill" style="width:${pct}%"></div></div>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-opts">
+      ${q.opts.map((o, i) => `
+        <button class="q-opt" id="opt${i}" onclick="pick(${i})">${o}</button>
+      `).join("")}
+    </div>
+  `;
+}
+
+function pick(i) {
+  if (answered) return;
+  answered = true;
+  const q = shuffled[quizIdx];
+  q.opts.forEach((_, j) => {
+    const b = document.getElementById("opt" + j);
+    if (j === q.ans) b.classList.add("correct");
+    else if (j === i && i !== q.ans) b.classList.add("wrong");
+    b.disabled = true;
+  });
+  if (i === q.ans) score++;
+  setTimeout(() => { quizIdx++; renderQ(); }, 1200);
+}
+
+function showResult() {
+  const pct = Math.round(score / shuffled.length * 100);
+  const msgs = [
+    [100, "EYEKON rainha! Pontuação perfeita! 👑"],
+    [80,  "Você sabe muito sobre as KATSEYE! 💜"],
+    [60,  "Bom resultado! Continue explorando o app! 🙂"],
+    [0,   "Hora de estudar mais sobre elas! 📚"]
+  ];
+  const msg = msgs.find(([min]) => pct >= min)[1];
+  document.getElementById("quiz-content").innerHTML = `
+    <div class="quiz-result">
+      <div class="quiz-big">${score}/${shuffled.length}</div>
+      <div class="quiz-of">${pct}% de acerto</div>
+      <div class="quiz-msg">${msg}</div>
+      <button class="quiz-replay" onclick="startQuiz()">Jogar novamente</button>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════ NAV ═══════════════════════════ */
+function showTab(tab, btn) {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("member-detail").classList.remove("active");
+  document.getElementById("tab-" + tab).classList.add("active");
+  btn.classList.add("active");
+  window.scrollTo(0, 0);
+
+  if (tab === "music"  && !document.querySelector(".mv-card"))   buildMusic();
+  if (tab === "disco"  && !document.querySelector(".disc-card")) buildDisco();
+  if (tab === "quiz"   && quizIdx === 0 && !answered)            startQuiz();
+}
+
+function openYT(id) {
+  window.open("https://www.youtube.com/watch?v=" + id, "_blank", "noopener");
+}
+
+/* ═══════════════════════════ INIT ═══════════════════════════ */
+buildMembers();
+
+/* Keyboard support for member cards */
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && e.target.classList.contains("member-card")) {
+    e.target.click();
+  }
+});
+</script>
+
+</body>
+</html>
